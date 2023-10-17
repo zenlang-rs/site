@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
 
@@ -44,15 +44,17 @@ export default function Home() {
 
   return (
     <div className="p-4 px-8">
-      <button
-        onClick={showValue}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-        disabled={loading}
-      >
-        {loading ? "Compiling..." : "Compile"}
-      </button>
+      <section className="flex justify-between items-center">
+        <h1 className="font-bold text-3xl my-3">Write Code here</h1>
 
-      <h1 className="font-bold text-3xl my-3">Write Code here</h1>
+        <button
+          onClick={showValue}
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg h-fit"
+          disabled={loading}
+        >
+          {loading ? "Compiling..." : "Compile"}
+        </button>
+      </section>
 
       <section className="py-4 rounded-sm">
         <Editor
@@ -63,6 +65,7 @@ export default function Home() {
           onMount={handleEditorDidMount}
         />
       </section>
+      
       <section>
         <h1 className="font-bold text-3xl mb-3">Output:</h1>
         {loading ? (

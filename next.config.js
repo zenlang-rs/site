@@ -8,6 +8,12 @@ const nextConfig = {
             port: '',
             pathname: '/u/**'
           },
+          {
+            protocol: 'https',
+            hostname: 'github.com',
+            port: '',
+            pathname: '/*.png'
+          }
         ],
       },
 }

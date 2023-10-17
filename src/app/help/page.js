@@ -15,18 +15,21 @@ const creditsDescription =
 const footerText =
   "If you have any questions or need assistance, please feel free to reach out to the Zen Lang community.";
 
-const contributors = [
+const contributorsData = [
   {
     name: "rootCircle",
     githubLink: "https://github.com/rootCircle",
+    avatarUrl: "https://github.com/rootCircle.png",
   },
   {
     name: "mohit07raghav19",
     githubLink: "https://github.com/mohit07raghav19",
+    avatarUrl: "https://github.com/mohit07raghav19.png",
   },
   {
     name: "Harshit-Chordiya",
     githubLink: "https://github.com/Harshit-Chordiya",
+    avatarUrl: "https://github.com/Harshit-Chordiya.png",
   },
 ];
 
@@ -34,32 +37,7 @@ const contributors = [
 const maxContributorsToShow = 3;
 
 function Help() {
-  const [contributorsData, setContributorsData] = useState([]);
   const [showAllContributors, setShowAllContributors] = useState(false);
-
-  useEffect(() => {
-    // Fetch GitHub data for contributors
-    const fetchContributorData = async () => {
-      try {
-        const contributorPromises = contributors.map(async (contributor) => {
-          const response = await fetch(
-            `https://api.github.com/users/${contributor.name}`
-          );
-          const data = await response.json();
-          return {
-            ...contributor,
-            avatarUrl: data.avatar_url,
-          };
-        });
-        const contributorData = await Promise.all(contributorPromises);
-        setContributorsData(contributorData);
-      } catch (error) {
-        console.error("Error fetching contributor data:", error);
-      }
-    };
-
-    fetchContributorData();
-  }, []);
 
   const visibleContributors = showAllContributors
     ? contributorsData
@@ -77,9 +55,9 @@ function Help() {
       <h2 className="text-3xl font-bold mt-4">{pageTitle}</h2>
       <p className="text-black-500 text-lg mt-4 first-letter lg:px-48 py-4">{pageDescription}</p>
       <section className="mt-6">
-        <h3 className="text-xl font-semibold pt-20">{creditsTitle}</h3>
+        <h3 className="text-xl font-semibold pt-8">{creditsTitle}</h3>
         <p className="text-black-500 mt-2">{creditsDescription}</p>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:gap-32 gap-8 text-left mt-2 lg:px-60">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:gap-x-32 gap-8 text-left mt-2 lg:px-60 mt-6">
           {visibleContributors.map((contributor, index) => (
             <li
               className="p-4 bg-white shadow-md rounded-lg text-center"
@@ -109,7 +87,7 @@ function Help() {
         {contributorsData.length > maxContributorsToShow && (
           <button
             onClick={() => setShowAllContributors(!showAllContributors)}
-            className="text-blue-600 hover:underline mt-2"
+            className="text-blue-600 hover:text-blue-700 hover:shadow-lg mt-8 shadow-md rounded-md p-3"
           >
             {showAllContributors ? "Show Less" : "Show More"}
           </button>
