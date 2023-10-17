@@ -32,7 +32,7 @@ export default function Navbar() {
               src={logo.src}
               alt={logo.alt}
             />
-            <span className="flex flex-row align-middle text-xl font-bold">Zen Lang</span>
+            <span className="flex flex-row items-center text-xl font-bold">Zen Lang</span>
           </div>
 
           {/* Hamburger Menu (Mobile View) */}
