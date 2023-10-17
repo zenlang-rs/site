@@ -66,15 +66,15 @@ export default function Home() {
         />
       </section>
       
-      <section>
+      <section className="mt-4">
         <h1 className="font-bold text-3xl mb-3">Output:</h1>
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <div className="p-4 bg-white shadow-md shadow-slate-400 rounded-lg min-h-[20vh]">
-            <pre>{output}</pre>
+          <div className="p-6 bg-white shadow-md shadow-slate-400 rounded-lg min-h-[20vh]">
+            <pre className="whitespace-pre-wrap">{output}</pre>
           </div>
         )}
       </section>
