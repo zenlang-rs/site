@@ -98,7 +98,7 @@ export default function Navbar() {
               {links.map((link, index) => {
                 return (
                   <li key={index}>
-                    <Link href={link.href}>
+                    <Link href={link.href} onClick={toggleMenu}>
                       <span className="block text-black hover:text-gray-800">
                         {link.name}
                       </span>
@@ -110,6 +110,7 @@ export default function Navbar() {
             <a
               className="block mt-3 text-gray-600 hover:text-black"
               target="_blank"
+              onClick={toggleMenu}
               href={sideLinks.href}
             >
               {sideLinks.name}

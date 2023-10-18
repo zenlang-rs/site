@@ -21,9 +21,12 @@ export default function Home() {
     try {
       // Make an API call to compile the code
       // @TODO
-      const response = await fetch("YOUR_API_ENDPOINT_HERE", {
+
+      const server_host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
+
+      const response = await fetch(server_host.concat("/api/compile") ,{
         method: "POST",
-        body: JSON.stringify({ code }),
+        body: JSON.stringify({ "code": code }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -34,7 +37,11 @@ export default function Home() {
       }
 
       const data = await response.json();
-      setOutput(data.output);
+      if (!data.output || !data.output.Ok) {
+        throw new Error("Failed to compile code");
+      }
+
+      setOutput(data.output.Ok);
     } catch (error) {
       setError("Error compiling code. Please try again.");
     } finally {

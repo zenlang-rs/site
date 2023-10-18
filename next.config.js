@@ -16,6 +16,9 @@ const nextConfig = {
           }
         ],
       },
+      env: {
+        SERVER_HOSTNAME: process.env.SERVER_HOSTNAME,
+      },
 }
 
 module.exports = nextConfig
