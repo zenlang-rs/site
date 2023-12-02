@@ -38,7 +38,6 @@ function Docs() {
               experience together! 🚀
             </p>
           </section>
-
           {/* Hello, Zen Section */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold">Hello, Zen !!</h2>
@@ -152,7 +151,6 @@ KHATAM TATA BYE BYE`}
               stored in the variable C.
             </p>
           </section>
-
           {/* PRINT BASANTI PRINT Section */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-4">PRINT BASANTI PRINT</h2>
@@ -183,10 +181,74 @@ KHATAM TATA BYE BYE`}
               &quot;Coding is fun!&quot; to the console.
             </p>
           </section>
-
           {/* AGAR, WARNA AGAR, NHI TOH Section */}
           {/* Include similar sections for other Zen features and keywords */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold mb-4">
+              AGAR, WARNA AGAR, NHI TOH, BAS ITNA HI
+            </h2>
+            <p className="text-lg leading-relaxed mb-4">
+              These are Zen&apos;s way of making decisions. It&apos;s like Zen
+              asking, &quot;Should I do this or that?&quot; You can tell Zen
+              what to do in different situations.
+            </p>
 
+            <h3 className="text-xl font-bold mb-2">AGAR</h3>
+            <p className="text-lg leading-relaxed mb-4">
+              The AGAR statement is Zen&apos;s way of asking, &quot;If this
+              condition is true, then do something.&quot; It&apos;s a simple
+              decision-making tool.
+            </p>
+
+            <h3 className="text-xl font-bold mb-2">WARNA AGAR</h3>
+            <p className="text-lg leading-relaxed mb-4">
+              The WARNA AGAR statement is Zen&apos;s way of saying, &quot;If the
+              previous condition is false, check this condition instead.&quot;
+              It&apos;s an alternative decision path.
+            </p>
+
+            <h3 className="text-xl font-bold mb-2">NHI TOH</h3>
+            <p className="text-lg leading-relaxed mb-4">
+              The NHI TOH statement is Zen&apos;s way of saying, &quot;If none
+              of the previous conditions are true, then do something else.&quot;
+              It&apos;s the alternative path when all other conditions fail.
+            </p>
+
+            <h3 className="text-xl font-bold mb-2">BAS ITNA HI</h3>
+            <p className="text-lg leading-relaxed mb-4">
+              The BAS ITNA HI statement marks the end of the conditional block.
+              It&apos;s like telling Zen, &quot;Okay, you&apos;ve made your
+              decision. Now, let&apos;s move on.”
+            </p>
+
+            <Editor
+              className="mb-4 mt-4"
+              height={`39vh`}
+              defaultLanguage="rust"
+              defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
+A BOLE TOH 10
+AGAR A > 5 TAB
+  PRINT BASANTI PRINT "A is greater than 5!"
+WARNA AGAR A == 5 TAB
+  PRINT BASANTI PRINT "A is exactly 5!"
+NHI TOH
+  PRINT BASANTI PRINT "A is less than 5!"
+BAS ITNA HI
+KHATAM TATA BYE BYE`}
+              theme={darkMode ? "light" : "vs-dark"}
+              options={{
+                padding: { top: 12 },
+                readOnly: true,
+                minimap: { enabled: false },
+                automaticLayout: true,
+                scrollBeyondLastLine: false,
+              }}
+            />
+
+            <p className="text-lg leading-relaxed mt-4">
+              Depending on the value of A, Zen prints a corresponding message.
+            </p>
+          </section>
           {/* JAB TAK HAI JAAN Section */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-4">JAB TAK HAI JAAN</h2>
@@ -221,7 +283,6 @@ KHATAM TATA BYE BYE`}
               is less than 5.
             </p>
           </section>
-
           {/* Comments in Zen Section */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-4">Comments in Zen</h2>
