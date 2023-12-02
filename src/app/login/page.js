@@ -14,7 +14,7 @@ export default function Login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("pass").value;
     const data = { email, password };
-    const host = process.env.SERVER_HOSTNAME;
+    const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     console.log(data);
     const response = await fetch(`${host}/api/login`, {
       method: "POST",
@@ -28,7 +28,7 @@ export default function Login() {
     if (!response.ok) {
       console.error("HTTP error", response.status);
     } else {
-      const result = await response.json();
+      const result = await response.text();
       router.push("/");
       console.log(result);
     }

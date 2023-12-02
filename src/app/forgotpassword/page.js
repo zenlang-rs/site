@@ -10,7 +10,7 @@ export default function Forgotpassword() {
   const sendMail = async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
-    const host = process.env.SERVER_HOSTNAME;
+    const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     console.log(data);
     const response = await fetch(`${host}/api/send_email/${email}`, {
       method: "POST",
@@ -23,7 +23,7 @@ export default function Forgotpassword() {
     if (!response.ok) {
       console.error("HTTP error", response.status);
     } else {
-      const result = await response.json();
+      const result = await response.text();
       console.log(result);
     }
   };

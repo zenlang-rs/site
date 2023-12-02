@@ -16,13 +16,12 @@ export default function SignUp() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("pass").value;
     const data = { name, username, email, password };
-    const host = process.env.SERVER_HOSTNAME;
+    const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     console.log(data);
     const response = await fetch(`${host}/api/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
     });
@@ -30,9 +29,8 @@ export default function SignUp() {
     if (!response.ok) {
       console.error("HTTP error", response.status);
     } else {
-      const result = await response.json();
+      const result = await response.text();
       router.push("/");
-      console.log(result);
     }
   };
   const validatePassword = (password) => {
