@@ -32,7 +32,7 @@ export default function Quiz() {
           testcases: [
             {
               input: "2999",
-              expected_output: "YES\n",
+              expected_output: "YES",
             },
           ],
         }),

@@ -164,7 +164,7 @@ KHATAM TATA BYE BYE`}
               height={`22vh`}
               defaultLanguage="rust"
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
-A BOLE TOH "Coding is fun!"
+A BOLE TOH 12
 PRINT BASANTI PRINT A
 KHATAM TATA BYE BYE`}
               theme={darkMode ? "light" : "vs-dark"}
@@ -178,7 +178,7 @@ KHATAM TATA BYE BYE`}
             />
             <p className="text-lg leading-relaxed">
               Zen expresses its love for coding by printing the message
-              &quot;Coding is fun!&quot; to the console.
+             12 to the console.
             </p>
           </section>
           {/* AGAR, WARNA AGAR, NHI TOH Section */}
@@ -265,7 +265,7 @@ KHATAM TATA BYE BYE`}
 A BOLE TOH 1
 JAB TAK HAI JAAN A < 5 TAB TAK
   PRINT BASANTI PRINT A
-  A = A + 1
+  A BOLE TOH A + 1
 JAHAN
 KHATAM TATA BYE BYE`}
               theme={darkMode ? "light" : "vs-dark"}

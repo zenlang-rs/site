@@ -7,11 +7,13 @@ export default function Home() {
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isInputCheckboxChecked, setIsInputCheckboxChecked] = useState(false);
+  const [textareaContent, setTextareaContent] = useState('');
   const editorRef = useRef(null);
   const { darkMode } = useContext(ThemeContext);
 
-  const sampleCode = "PARAMPARA PRATISHTA ANUSHASHAN\nPRINT BASANTI PRINT \"Hello, Zen!\"\nKHATAM TATA BYE BYE";
-
+  const sampleCode =
+    'PARAMPARA PRATISHTA ANUSHASHAN\nPRINT BASANTI PRINT "Hello, Zen!"\nKHATAM TATA BYE BYE';
 
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
@@ -32,7 +34,7 @@ export default function Home() {
 
       const response = await fetch(server_host.concat("/api/compile"), {
         method: "POST",
-        body: JSON.stringify({ code: code }),
+        body: JSON.stringify({ code: code, input: textareaContent }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -43,10 +45,10 @@ export default function Home() {
       }
 
       const data = await response.json();
-      if (!data.output || !data.output.Ok) {
+      if (!data.output || (!data.output.Ok && data.output.Ok !== "")) {
         if (data.output.Err) {
-          console.log(data.output.Err)
-          throw new Error(data.output.Err)
+          console.log(data.output.Err);
+          throw new Error(data.output.Err);
         }
         throw new Error("Error compiling code. Please try again.");
       }
@@ -95,6 +97,48 @@ export default function Home() {
           theme={darkMode ? "vs" : "vs-dark"}
           onMount={handleEditorDidMount}
         />
+      </section>
+
+      <section
+        className={`mt-4 ${
+          darkMode ? "bg-black text-white" : "bg-white text-black"
+        }`}
+      >
+        <div
+          className={`p-8 ${
+            darkMode ? "border border-gray-700" : "border border-gray-300"
+          }`}
+        >
+          <label
+            className={`flex items-center ${
+              darkMode ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
+            <input
+              type="checkbox"
+              className={`mr-2 ${darkMode ? "text-gray-200" : "text-black"} font-bold`}
+              checked={isInputCheckboxChecked}
+              onChange={() =>
+                setIsInputCheckboxChecked(!isInputCheckboxChecked)
+              }
+            />
+            Give Input
+          </label>
+
+          {isInputCheckboxChecked && (
+            <div
+              className={`mt-4 p-4 border rounded-lg shadow-md ${
+                darkMode ? "bg-black" : "bg-white"
+              }`}
+            >
+              <textarea
+                className={`w-full h-32 border p-2 rounded text-black `}
+                placeholder="Enter your input here..."
+                onChange={(e) => setTextareaContent(e.target.value)}
+              ></textarea>
+            </div>
+          )}
+        </div>
       </section>
 
       <section className="mt-4">

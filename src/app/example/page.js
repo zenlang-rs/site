@@ -87,7 +87,7 @@ const Examples = () => {
           <ExampleCard
             title="Example 3: Print Even Numbers"
             code={
-              "PARAMPARA PRATISHTA ANUSHASHAN\nx BOLE TOH 1\nJAB TAK HAI JAAN x <= 10 TAB TAK\n  AGAR x%2 == 0 TAB\n    PRINT BASANTI PRINT x\n  BAS ITNA HI\n  x BOLE TOH x + 1\nJAHAN\nKHATAM TATA BYE BYE"
+              "PARAMPARA PRATISHTA ANUSHASHAN\nx BOLE TOH 1\nJAB TAK HAI JAAN x < 10 TAB TAK\n  AGAR x%2 == 0 TAB\n    PRINT BASANTI PRINT x\n  BAS ITNA HI\n  x BOLE TOH x + 1\nJAHAN\nKHATAM TATA BYE BYE"
             }
             description="This program uses a JAB TAK HAI JAAN loop to print even numbers from 1 to 10."
             height={25}
