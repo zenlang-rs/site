@@ -8,7 +8,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isInputCheckboxChecked, setIsInputCheckboxChecked] = useState(false);
-  const [textareaContent, setTextareaContent] = useState('');
+  const [textareaContent, setTextareaContent] = useState("");
   const editorRef = useRef(null);
   const { darkMode } = useContext(ThemeContext);
 
@@ -96,6 +96,12 @@ export default function Home() {
           defaultValue={sampleCode}
           theme={darkMode ? "vs" : "vs-dark"}
           onMount={handleEditorDidMount}
+          options={{
+            padding: { top: 12 },
+            minimap: { enabled: false },
+            automaticLayout: true,
+            scrollBeyondLastLine: false,
+          }}
         />
       </section>
 
@@ -116,7 +122,9 @@ export default function Home() {
           >
             <input
               type="checkbox"
-              className={`mr-2 ${darkMode ? "text-gray-200" : "text-black"} font-bold`}
+              className={`mr-2 ${
+                darkMode ? "text-gray-200" : "text-black"
+              } font-bold`}
               checked={isInputCheckboxChecked}
               onChange={() =>
                 setIsInputCheckboxChecked(!isInputCheckboxChecked)

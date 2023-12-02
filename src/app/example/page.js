@@ -119,7 +119,7 @@ const Examples = () => {
           <ExampleCard
             title="Example 5: Find Maximum of Two Numbers"
             code={
-              'PARAMPARA PRATISHTA ANUSHASHAN\nPRINT BASANTI PRINT "Enter two numbers: "\nNUM1 BOLE TOH INPUT LE LE RE BABA\nNUM2 BOLE TOH INPUT LE LE RE BABA\nAGAR NUM1 > NUM2 TAB\n  MAX BOLE TOH NUM1\nWARNA\n  MAX BOLE TOH NUM2\nBAS ITNA HI\nPRINT BASANTI PRINT " Maximum Is : "\nPRINT BASANTI PRINT MAX\nKHATAM TATA BYE BYE'
+              'PARAMPARA PRATISHTA ANUSHASHAN\nNUM1 BOLE TOH INPUT LE LE RE BABA\nNUM2 BOLE TOH INPUT LE LE RE BABA\nMAX BOLE TOH 0\nAGAR NUM1 > NUM2 TAB\nMAX BOLE TOH NUM1\nNHI TOH\nMAX BOLE TOH NUM2\nBAS ITNA HI\nPRINT BASANTI PRINT " Maximum Is : "\nPRINT BASANTI PRINT MAX\nKHATAM TATA BYE BYE'
             }
             description="This program takes two numbers as input and prints the maximum of the two."
             height={35}
@@ -179,12 +179,12 @@ const Examples = () => {
             }}
           />
           <ExampleCard
-            title="Example 9: Right-Angled Triangle Pattern"
+            title="Example 9: Multiplication Table "
             code={
-              'PARAMPARA PRATISHTA ANUSHASHAN\nPRINT BASANTI PRINT "Enter the number of rows:"\nROWS BOLE TOH INPUT LE LE RE BABA\nI BOLE TOH 0\nJ BOLE TOH 0\nJAB TAK HAI JAAN I <= ROWS TAB TAK\n  JAB TAK HAI JAAN J <= I TAB TAK\n    PRINT BASANTI PRINT * \n    J BOLE TOH J + 1\n  JAHAN\n  PRINT BASANTI PRINT " " @Move to the next line\n  I BOLE TOH I + 1\nJAHAN\nKHATAM TATA BYE BYE'
+              "PARAMPARA PRATISHTA ANUSHASHAN\nnum BOLE TOH INPUT LE LE RE BABA\nI BOLE TOH 1\nJAB TAK HAI JAAN I <=10 TAB TAK\n   PRINT BASANTI PRINT I*num \n I BOLE TOH I+1 JAHAN\nKHATAM TATA BYE BYE"
             }
-            description="This program prints a right-angled triangle pattern based on user input."
-            height={40}
+            description="This program prints print multiplication table of number based on user input."
+            height={25}
           />
           <hr
             style={{
@@ -197,7 +197,7 @@ const Examples = () => {
           <ExampleCard
             title="Example 10: Simple Calculator"
             code={
-              'PARAMPARA PRATISHTA ANUSHASHAN\nPRINT BASANTI PRINT "Enter two numbers:"\nnum1 BOLE TOH INPUT LE LE RE BABA\nnum2 BOLE TOH INPUT LE LE RE BABA\nPRINT BASANTI PRINT "Select operation (+, -, *, /):"\nopr BOLE TOH INPUT LE LE RE BABA\nAGAR opr == "+" TAB\n  result BOLE TOH num1 + num2\nWARNA AGAR opr == "-" TAB\n  result BOLE TOH num1 - num2\nWARNA AGAR opr == "*" TAB\n  result BOLE TOH num1 * num2\nWARNA AGAR opr == "/" TAB\n  result BOLE TOH num1 / num2\nNHI TOH\n  PRINT BASANTI PRINT "Invalid operation!"\nBAS ITNA HI\nPRINT BASANTI PRINT result\nKHATAM TATA BYE BYE'
+              'PARAMPARA PRATISHTA ANUSHASHAN\n PRINT BASANTI PRINT "Enter two numbers:"\n num1 BOLE TOH INPUT LE LE RE BABA\n num2 BOLE TOH INPUT LE LE RE BABA\n result BOLE TOH 0\n PRINT BASANTI PRINT "Select operation (1-4) (1. Addition , 2. Subtraction, 3.\n Multiplication, 4. Division):"\n opr BOLE TOH INPUT LE LE RE BABA\n AGAR opr == 1 TAB\n   result BOLE TOH num1 + num2\n WARNA AGAR opr == 2 TAB\n   result BOLE TOH num1 - num2\n WARNA AGAR opr == 3 TAB\n   result BOLE TOH num1 * num2\n WARNA AGAR opr == 4 TAB\n   result BOLE TOH num1 / num2\n NHI TOH\n   PRINT BASANTI PRINT "Invalid operation!"\n BAS ITNA HI\n PRINT BASANTI PRINT result\n KHATAM TATA BYE BYE'
             }
             description="This program performs basic arithmetic operations based on user input."
             height={50}
@@ -213,10 +213,10 @@ const Examples = () => {
           <ExampleCard
             title="Example 11: Prime Number Checker"
             code={
-              'PARAMPARA PRATISHTA ANUSHASHAN\nnum BOLE TOH 17\ni BOLE TOH num\nisPrime BOLE TOH true\nJAB TAK HAI JAAN i <= num/2 TAB TAK\n  AGAR num % i == 0 TAB\n    isPrime BOLE TOH false\n  BAS ITNA HI\n  i BOLE TOH i + 1\nJAHAN\nAGAR isPrime TAB\n  PRINT BASANTI PRINT " A prime number"\nWARNA\n  PRINT BASANTI PRINT "Not a prime number"\nKHATAM TATA BYE BYE'
+              'PARAMPARA PRATISHTA ANUSHASHAN\nnum BOLE TOH INPUT LE LE RE BABA\ni BOLE TOH 2\nisPrime BOLE TOH 0\nAGAR num == 0 || num == 1 TAB\n    isPrime BOLE TOH 2\n  BAS ITNA HI\nJAB TAK HAI JAAN i <= num/2 && isPrime<2 TAB TAK\n  AGAR num % i == 0 TAB\n    isPrime BOLE TOH 1\n  BAS ITNA HI\n  i BOLE TOH i + 1\nJAHAN\nAGAR isPrime == 0 TAB\n  PRINT BASANTI PRINT " A prime number"\nWARNA AGAR isPrime == 2 TAB\n  PRINT BASANTI PRINT "Neither prime nor composite number"\nNHI TOH\n  PRINT BASANTI PRINT "Not a prime number"\nBAS ITNA HI\nKHATAM TATA BYE BYE'
             }
             description="This program checks whether a given number is prime or not."
-            height={39}
+            height={52}
           />
         </div>
       </div>
