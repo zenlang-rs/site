@@ -138,11 +138,11 @@ export default function Navbar () {
 <Link href="/signup">
     <span className={darkMode ? 'text-white hover:text-gray-500' : 'text-gray-600 hover:text-black'}>Signup</span>
 </Link>
+ <Link href="/quiz">
+    <span className={darkMode ? 'text-white hover:text-gray-500' : 'text-gray-600 hover:text-black'}>Quiz</span>
+</Link>
 
-    {/* <a href="/src/components/layout/Login.js" className={darkMode ? 'text-white hover:text-gray-500' : 'text-gray-600 hover:text-black'}>Login</a> */}
-    {/* <a href="/signup" className={darkMode ? 'text-white hover:text-gray-500' : 'text-gray-600 hover:text-black'}>Signup</a> */}
 
-    {/* Side Links (Desktop View) */}
     <a
         className={
             darkMode
