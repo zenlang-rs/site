@@ -1,12 +1,40 @@
 "use client";
 import React, { useState, useContext } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ThemeContext } from "../../app/contextapi/ThemeContext";
 
-export default function Login() {
+export default function SignUp() {
+  const router = useRouter();
   const { darkMode } = useContext(ThemeContext);
   const [passwordError, setPasswordError] = useState("");
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    console.log("first");
+    const name = document.getElementById("name").value;
+    const username = document.getElementById("uname").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("pass").value;
+    const data = { name, username, email, password };
+    const host = process.env.SERVER_HOSTNAME;
+    console.log(data);
+    const response = await fetch(`${host}/api/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(data),
+    });
 
+    if (!response.ok) {
+      console.error("HTTP error", response.status);
+    } else {
+      const result = await response.json();
+      router.push("/");
+      console.log(result);
+    }
+  };
   const validatePassword = (password) => {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -63,14 +91,52 @@ export default function Login() {
               </p>
             </div>
           </div>
-          <form onSubmit={(e) => e.preventDefault()} className="mt-8 space-y-5">
+          <form
+            onSubmit={(e) => {
+              handleSignUp(e);
+            }}
+            className="mt-8 space-y-5"
+          >
             <div>
               <label
+                htmlFor="name"
+                className={darkMode ? "font-medium text-white" : "font-medium"}
+              >
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="uname"
+                className={darkMode ? "font-medium text-white" : "font-medium"}
+              >
+                UserName
+              </label>
+              <input
+                id="uname"
+                name="uname"
+                type="text"
+                required
+                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="email"
                 className={darkMode ? "font-medium text-white" : "font-medium"}
               >
                 Email
               </label>
               <input
+                id="email"
+                name="email"
                 type="email"
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
@@ -78,11 +144,14 @@ export default function Login() {
             </div>
             <div>
               <label
+                htmlFor="pass"
                 className={darkMode ? "font-medium text-white" : "font-medium"}
               >
                 Password
               </label>
               <input
+                id="pass"
+                name="pass"
                 type="password"
                 required
                 onChange={handlePasswordChange}
