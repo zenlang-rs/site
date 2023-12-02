@@ -58,14 +58,14 @@ export default function Quiz() {
       <div className="w-1/2 p-4  overflow-auto h-screen text-lg">
         <h2 className="text-2xl font-bold mb-4">PROBLEM STATEMENT</h2>
         <p>Recently, Chef visited his doctor. The doctor advised Chef to drink at least 2000 ml of water each day.</p>
-        <p>Chef drank X ml of water today. Determine if Chef followed the doctor's advice or not.</p>
+        <p>Chef drank X ml of water today. Determine if Chef followed the doctor&apos;s advice or not.</p>
         <br/>
         <h2 className="text-2xl font-bold mt-4 mb-4">INPUT FORMAT</h2>
         <p>The first line contains a single integer T — the number of test cases. Then the test cases follow.</p>
         <p>The first and only line of each test case contains one integer X — the amount of water Chef drank today.</p>
         <br/>
         <h2 className="text-2xl font-bold mt-4 mb-4">OUTPUT FORMAT</h2>
-        <p>For each test case, output YES if Chef followed the doctor's advice of drinking at least 2000 ml of water. Otherwise, output NO.</p>
+        <p>For each test case, output YES if Chef followed the doctor&apos;s advice of drinking at least 2000 ml of water. Otherwise, output NO.</p>
         <br/>
         <h2 className="text-2xl font-bold mt-4 mb-4">CONSTRAINTS</h2>
         <p>1 ≤ T ≤ 2000</p>
@@ -105,9 +105,9 @@ export default function Quiz() {
         </table>
   
         <h2 className="text-2xl font-bold mt-4 mb-4">EXPLANATION</h2>
-        <p><span className='font-bold'>Test case 1:</span> Chef followed the doctor's advice since he drank 2999 ml of water which is ≥ 2000 ml.</p>
-        <p><span className='font-bold'>Test case 2:</span> Chef did not follow the doctor's advice since he drank 1450 ml of water which is less than 2000 ml.</p>
-        <p><span className='font-bold'>Test case 3:</span> Chef followed the doctor's advice since he drank 2000 ml of water which is ≥ 2000 ml.</p>
+        <p><span className='font-bold'>Test case 1:</span> Chef followed the doctor&apos;s advice since he drank 2999 ml of water which is ≥ 2000 ml.</p>
+        <p><span className='font-bold'>Test case 2:</span> Chef did not follow the doctor&apos;s advice since he drank 1450 ml of water which is less than 2000 ml.</p>
+        <p><span className='font-bold'>Test case 3:</span> Chef followed the doctor&apos;s advice since he drank 2000 ml of water which is ≥ 2000 ml.</p>
       </div>
       <div className="w-1/2 flex flex-col h-screen">
         <section className='py-4 rounded-sm overflow-auto ml-6'>
