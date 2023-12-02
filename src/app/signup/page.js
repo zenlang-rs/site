@@ -35,14 +35,14 @@ export default function SignUp() {
   };
   const validatePassword = (password) => {
     const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!_\-%*?&])[A-Za-z\d_@$\-!%*?&]{6,}$/;
     return regex.test(password);
   };
 
   const handlePasswordChange = (event) => {
     if (!validatePassword(event.target.value)) {
       setPasswordError(
-        "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
       );
     } else {
       setPasswordError("");

@@ -1,17 +1,16 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import { ThemeContext } from "../contextapi/ThemeContext";
 
-export default function Forgotpassword() {
+export default function ForgotPassword() {
   const { darkMode } = useContext(ThemeContext);
 
-  const [passwordError, setPasswordError] = useState("");
   const sendMail = async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
-    console.log(data);
+    
     const response = await fetch(`${host}/api/send_email/${email}`, {
       method: "POST",
       headers: {
@@ -25,21 +24,6 @@ export default function Forgotpassword() {
     } else {
       const result = await response.text();
       console.log(result);
-    }
-  };
-  const validatePassword = (password) => {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return regex.test(password);
-  };
-
-  const handlePasswordChange = (event) => {
-    if (!validatePassword(event.target.value)) {
-      setPasswordError(
-        "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
-      );
-    } else {
-      setPasswordError("");
     }
   };
 
