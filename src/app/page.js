@@ -10,6 +10,9 @@ export default function Home() {
   const editorRef = useRef(null);
   const { darkMode } = useContext(ThemeContext);
 
+  const sampleCode = "PARAMPARA PRATISHTA ANUSHASHAN\nPRINT BASANTI PRINT \"Hello, Zen!\"\nKHATAM TATA BYE BYE";
+
+
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
   }
@@ -41,12 +44,16 @@ export default function Home() {
 
       const data = await response.json();
       if (!data.output || !data.output.Ok) {
-        throw new Error("Failed to compile code");
+        if (data.output.Err) {
+          console.log(data.output.Err)
+          throw new Error(data.output.Err)
+        }
+        throw new Error("Error compiling code. Please try again.");
       }
 
       setOutput(data.output.Ok);
     } catch (error) {
-      setError("Error compiling code. Please try again.");
+      setError(error.toString());
     } finally {
       setLoading(false);
     }
@@ -84,7 +91,7 @@ export default function Home() {
         <Editor
           height="40vh"
           defaultLanguage="rust"
-          defaultValue="// Write code here!"
+          defaultValue={sampleCode}
           theme={darkMode ? "vs" : "vs-dark"}
           onMount={handleEditorDidMount}
         />
@@ -103,7 +110,7 @@ export default function Home() {
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
-          <p className="text-red-500">{error}</p>
+          <pre className="text-red-500">{error}</pre>
         ) : (
           <div
             className={
