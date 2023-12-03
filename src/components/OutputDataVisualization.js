@@ -10,7 +10,7 @@ const OutputDataVisualization = ({ data }) => {
   };
 
   return (
-    <section className="mx-auto bg-white p-4 shadow-lg shadow-gray-300 min-h-[10] rounded-md">
+    <section className="mx-auto bg-white p-4 shadow-lg shadow-gray-300 min-h-[10rem] rounded-md">
       {/* Loop through the data and display rows with green, red, or error background colors */}
       {data && data !== "" && JSON.parse(data).map((item, index) => (
         <div

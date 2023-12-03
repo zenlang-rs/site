@@ -2,7 +2,7 @@
 import React, { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ThemeContext } from "../../app/contextapi/ThemeContext";
+import { ThemeContext } from "../../components/contextapi/ThemeContext";
 
 export default function SignUp() {
   const router = useRouter();
@@ -10,7 +10,6 @@ export default function SignUp() {
   const [passwordError, setPasswordError] = useState("");
   const handleSignUp = async (e) => {
     e.preventDefault();
-    console.log("first");
     const name = document.getElementById("name").value;
     const username = document.getElementById("uname").value;
     const email = document.getElementById("email").value;
@@ -94,7 +93,7 @@ export default function SignUp() {
             onSubmit={(e) => {
               handleSignUp(e);
             }}
-            className="mt-8 space-y-5"
+            className="mt-8 space-y-5 mb-5"
           >
             <div>
               <label
@@ -165,12 +164,6 @@ export default function SignUp() {
                 Create Account
               </button>
             </div>
-
-            <div>
-              <div> </div>{" "}
-            </div>
-            <div> </div>
-            <div> </div>
           </form>
         </div>
       </main>

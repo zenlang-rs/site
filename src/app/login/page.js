@@ -2,7 +2,7 @@
 import React, { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ThemeContext } from "../../app/contextapi/ThemeContext";
+import { ThemeContext } from "../../components/contextapi/ThemeContext";
 
 export default function Login() {
   const router = useRouter();
@@ -117,7 +117,7 @@ export default function Login() {
                 <small style={{ color: "red" }}>{passwordError}</small>
               )}
             </div>
-            <div className="text-center mb-1">
+            <div className="text-center mb-6">
               <button className="w-full px-4 py-2  text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
                 Create Account
               </button>
@@ -128,8 +128,6 @@ export default function Login() {
               </Link>
             </div>
 
-            <div></div>
-            <div></div>
           </form>
         </div>
       </main>

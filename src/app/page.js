@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState, useContext } from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "../app/contextapi/ThemeContext";
+import { ThemeContext } from "../components/contextapi/ThemeContext";
 
 export default function Home() {
   const [output, setOutput] = useState("");
@@ -161,7 +161,7 @@ export default function Home() {
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
-          <pre className="text-red-500">{error}</pre>
+          <pre className="whitespace-pre-wrap text-red-500">{error}</pre>
         ) : (
           <div
             className={

@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext } from "react";
 import Link from "next/link";
-import { ThemeContext } from "../contextapi/ThemeContext";
+import { ThemeContext } from "../../components/contextapi/ThemeContext";
 
 export default function ForgotPassword() {
   const { darkMode } = useContext(ThemeContext);

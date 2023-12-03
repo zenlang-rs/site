@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
-import { ThemeContext } from "../contextapi/ThemeContext";
+import { ThemeContext } from "../../components/contextapi/ThemeContext";
 
 // Define your variables for text and contributors
 
@@ -20,16 +20,19 @@ const contributorsData = [
     name: "rootCircle",
     githubLink: "https://github.com/rootCircle",
     avatarUrl: "https://github.com/rootCircle.png",
+    areas: ["maintainer", "compiler", "backend", "website"]
   },
   {
     name: "mohit07raghav19",
     githubLink: "https://github.com/mohit07raghav19",
     avatarUrl: "https://github.com/mohit07raghav19.png",
+    areas: ["compiler", "backend", "website"]
   },
   {
     name: "Harshit-Chordiya",
     githubLink: "https://github.com/Harshit-Chordiya",
     avatarUrl: "https://github.com/Harshit-Chordiya.png",
+    areas: ["website"]
   },
 ];
 
@@ -117,6 +120,10 @@ function Help() {
               >
                 {contributor.name}
               </a>
+
+              <p className="text-sm font-medium text-lime-600">
+                {contributor.areas.join(" ")}
+              </p>
             </li>
           ))}
         </ul>

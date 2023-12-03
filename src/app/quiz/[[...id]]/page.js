@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState, useContext } from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "../../contextapi/ThemeContext";
+import { ThemeContext } from "../../../components/contextapi/ThemeContext";
 import { quizData, defaultQuiz } from "./getQuiz";
 import OutputDataVisualization from "@/components/OutputDataVisualization";
 
@@ -71,13 +71,11 @@ export default function Quiz({ params }) {
 
   return (
     <div
-      className={
-        darkMode
-          ? "bg-black text-white p-4 px-8 flex"
-          : "bg-white text-black p-4 px-8 flex"
-      }
+      className={`flex flex-col ${
+        darkMode ? "bg-black text-white" : "bg-white text-black"
+      } p-4 px-8 md:flex-row`}
     >
-      <div className="w-1/2 p-4  overflow-auto h-[90vh] text-lg">
+      <div className="w-full md:w-1/2 p-4 overflow-auto md:h-[90vh] text-lg">
         {renderContent(quiz.problemStatement)}
         {renderContent(quiz.inputFormat)}
         {renderContent(quiz.outputFormat)}
@@ -85,8 +83,8 @@ export default function Quiz({ params }) {
         {renderTable(quiz.sampleInputOutput)}
         {renderContent(quiz.explanation)}
       </div>
-      <div className="w-1/2 flex flex-col h-[90vh]">
-        <section className="py-4 rounded-sm overflow-auto ml-6">
+      <div className="w-full md:w-1/2 flex flex-col md:h-[90vh]">
+        <section className="py-4 rounded-sm overflow-auto md:ml-6 md:order-first">
           <Editor
             height="50vh"
             defaultLanguage="rust"
@@ -95,45 +93,38 @@ export default function Quiz({ params }) {
             onMount={handleEditorDidMount}
           />
         </section>
-
+        <div className="p-4 space-x-4 text-end">
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            onClick={runSampleTest}
+          >
+            Run
+          </button>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            onClick={runActualTest}
+          >
+            Submit
+          </button>
+        </div>
         <section
-          className={
-            darkMode
-              ? "sticky bottom-0 bg-black ml-6"
-              : "sticky bottom-0 bg-white ml-6"
-          }
+          className={`bottom-0 ${darkMode ? "bg-black" : "bg-white"} md:ml-6`}
         >
           <h1
-            className={
-              darkMode
-                ? "font-bold text-3xl mb-3 text-white"
-                : "font-bold text-3xl mb-3 text-black"
-            }
+            className={`font-bold text-3xl mb-3 ${
+              darkMode ? "text-white" : "text-black"
+            }`}
           >
             Result:
           </h1>
           {loading ? (
             <p className={darkMode ? "text-white" : "text-black"}>Loading...</p>
           ) : error ? (
-            <p className="text-red-500">{error}</p>
+            <p className="whitespace-pre-wrap text-red-500">{error}</p>
           ) : (
             <OutputDataVisualization data={output} />
           )}
         </section>
-      </div>
-      <div className="fixed bottom-4 right-4 space-x-4">
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-          onClick={runSampleTest}
-        >
-          Run
-        </button>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-          onClick={runActualTest}
-        >
-          Submit
-        </button>
       </div>
     </div>
   );

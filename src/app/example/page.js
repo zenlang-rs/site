@@ -2,7 +2,7 @@
 import Head from "next/head";
 import { useContext } from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "../contextapi/ThemeContext";
+import { ThemeContext } from "../../components/contextapi/ThemeContext";
 
 const ExampleCard = ({ title, code, description, height }) => {
   const { darkMode } = useContext(ThemeContext);

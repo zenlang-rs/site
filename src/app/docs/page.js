@@ -2,7 +2,7 @@
 import { useContext } from "react";
 import React from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "../contextapi/ThemeContext";
+import { ThemeContext } from "../../components/contextapi/ThemeContext";
 
 function Docs() {
   const { darkMode } = useContext(ThemeContext);
