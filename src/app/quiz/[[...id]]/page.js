@@ -4,8 +4,14 @@ import Editor from "@monaco-editor/react";
 import { ThemeContext } from "../../../components/contextapi/ThemeContext";
 import { quizData, defaultQuiz } from "./getQuiz";
 import OutputDataVisualization from "@/components/OutputDataVisualization";
+import { redirect } from "next/navigation";
+import { hasAuthenticated } from "@/utils/validateJWT";
 
 export default function Quiz({ params }) {
+  if (!hasAuthenticated()) {
+    redirect("/login");
+  }
+
   function getQuizById(id) {
     return quizData[id] || defaultQuiz;
   }

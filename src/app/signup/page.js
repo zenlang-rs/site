@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -7,6 +7,13 @@ import { ThemeContext } from "../../components/contextapi/ThemeContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function SignUp() {
+  
+  useEffect(() => {
+    if (hasAuthenticated()) {
+      redirect("/");
+    }
+  }, [])
+
   const router = useRouter();
   const { darkMode } = useContext(ThemeContext);
   const [passwordError, setPasswordError] = useState("");

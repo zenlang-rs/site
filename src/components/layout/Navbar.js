@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeContext } from "../contextapi/ThemeContext";
+import { hasAuthenticated, logout } from "@/utils/validateJWT";
 
 export default function Navbar() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -19,11 +20,23 @@ export default function Navbar() {
     { name: "Help", href: "/help" },
   ];
 
-  const rightLinks = [
-    { name: "Login / Register", href: "/login" },
+  const nonAuthRightLinks = [
+    {
+      name: "Login / Register",
+      href: "/login",
+      isRoute: true,
+      method: undefined,
+    },
     // { name: "Signup", href: "/signup" },
-    { name: "Quiz", href: "/quiz" },
+    { name: "Quiz", href: "/quiz", isRoute: true, method: undefined },
   ];
+
+  const authRightLinks = [
+    { name: "Logout", isRoute: false, href: "/logout", method: logout },
+    { name: "Quiz", href: "/quiz", isRoute: true, method: undefined },
+  ];
+
+  let [rightLinks, setRightLinks] = useState([]);
 
   const sideLinks = { name: "GitHub", href: "https://github.com/zenlang-rs" };
 
@@ -31,10 +44,23 @@ export default function Navbar() {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+  
+  // useEffect(() => {
+  //   if (hasAuthenticated()) {
+  //     setRightLinks(authRightLinks)
+  //   } else {
+  //     setRightLinks(nonAuthRightLinks);
+  //   }
+  // }, [])
+
 
   return (
     <>
-      <nav className={darkMode ? "bg-black p-4" : "bg-white shadow-md p-4"}>
+      <nav
+        className={
+          darkMode ? "bg-black p-4" : "bg-white shadow-md shadow-slate-500 p-4"
+        }
+      >
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex text-black">
@@ -151,19 +177,23 @@ export default function Navbar() {
             {/* Login, Signup, Quiz in Desktop View */}
             <div className="hidden md:flex space-x-6">
               {rightLinks.map((link, index) => {
-                return (
-                  <Link key={index} href={link.href}>
-                    <span
-                      className={
-                        darkMode
-                          ? "text-white hover:text-gray-500"
-                          : "text-black hover:text-gray-800"
-                      }
-                    >
-                      {link.name}
-                    </span>
-                  </Link>
-                );
+                if (link.isRoute) {
+                  return (
+                    <Link key={index} href={link.href}>
+                      <span
+                        className={
+                          darkMode
+                            ? "text-white hover:text-gray-500"
+                            : "text-black hover:text-gray-800"
+                        }
+                      >
+                        {link.name}
+                      </span>
+                    </Link>
+                  );
+                } else {
+                  link.method();
+                }
               })}
             </div>
 
@@ -202,6 +232,19 @@ export default function Navbar() {
                 </svg>
               )}
             </div>
+            <a
+              className={
+                darkMode
+                  ? "block text-white hover:text-gray-500"
+                  : "block text-gray-600 hover:text-black"
+              }
+              target="_blank"
+              onClick={toggleMenu}
+              href={sideLinks.href}
+            >
+              {sideLinks.name}
+              <span className="ml-1 text-lg">↗</span>
+            </a>
           </div>
         </div>
 

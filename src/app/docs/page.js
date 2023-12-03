@@ -22,9 +22,9 @@ function Docs() {
             <h1 className="text-4xl font-bold mb-6"># Welcome to ZenDocs</h1>
             <p className="text-lg leading-relaxed">
               Welcome to the{" "}
-              <bold className="font-semibold text-red-600">
+              <em className="font-semibold text-red-600">
                 Zen programming universe
-              </bold>{" "}
+              </em>{" "}
               — a place where coding is simple, fun, and totally stress-free! 🌟
               In Zen, we&apos;ve ditched the complicated stuff like delimiters
               and indentation. Why? Because we believe coding should be a breeze
