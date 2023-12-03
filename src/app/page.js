@@ -47,7 +47,6 @@ export default function Home() {
       const data = await response.json();
       if (!data.output || (!data.output.Ok && data.output.Ok !== "")) {
         if (data.output.Err) {
-          console.log(data.output.Err);
           throw new Error(data.output.Err);
         }
         throw new Error("Error compiling code. Please try again.");

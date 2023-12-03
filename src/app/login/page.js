@@ -15,7 +15,7 @@ export default function Login() {
     const password = document.getElementById("pass").value;
     const data = { email, password };
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
-    console.log(data);
+
     const response = await fetch(`${host}/api/login`, {
       method: "POST",
       headers: {
@@ -28,9 +28,9 @@ export default function Login() {
     if (!response.ok) {
       console.error("HTTP error", response.status);
     } else {
-      const result = await response.text();
+      const result = await response.json();
       router.push("/");
-      console.log(result);
+      alert(result);
     }
   };
   const validatePassword = (password) => {

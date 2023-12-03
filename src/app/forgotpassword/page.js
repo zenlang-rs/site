@@ -22,8 +22,8 @@ export default function ForgotPassword() {
     if (!response.ok) {
       console.error("HTTP error", response.status);
     } else {
-      const result = await response.text();
-      console.log(result);
+      const result = await response.json();
+      alert(result);
     }
   };
 

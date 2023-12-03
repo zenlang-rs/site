@@ -17,7 +17,6 @@ export default function SignUp() {
     const password = document.getElementById("pass").value;
     const data = { name, username, email, password };
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
-    console.log(data);
     const response = await fetch(`${host}/api/signup`, {
       method: "POST",
       headers: {
@@ -29,8 +28,10 @@ export default function SignUp() {
     if (!response.ok) {
       console.error("HTTP error", response.status);
     } else {
-      const result = await response.text();
+      const result = await response.json();
+      alert(result.message);
       router.push("/");
+      
     }
   };
   const validatePassword = (password) => {
