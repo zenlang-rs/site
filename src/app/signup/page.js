@@ -6,6 +6,9 @@ import { toast } from "react-toastify";
 import { ThemeContext } from "../../components/contextapi/ThemeContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { redirect } from "next/navigation";
+import { hasAuthenticated } from "@/utils/validateJWT";
+
 export default function SignUp() {
   
   useEffect(() => {
