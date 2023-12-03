@@ -2,8 +2,10 @@
 import React, { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "react-toastify";
 import { ThemeContext } from "../../components/contextapi/ThemeContext";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function SignUp() {
   const router = useRouter();
   const { darkMode } = useContext(ThemeContext);
@@ -16,22 +18,78 @@ export default function SignUp() {
     const password = document.getElementById("pass").value;
     const data = { name, username, email, password };
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
-    const response = await fetch(`${host}/api/signup`, {
+    const id = toast.loading("Checking Credentials...", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    await fetch(`${host}/api/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    })
+      .then((response) => {
+        response
+          .json()
+          .then((result) => {
 
-    if (!response.ok) {
-      console.error("HTTP error", response.status);
-    } else {
-      const result = await response.json();
-      alert(result.message);
-      router.push("/");
-      
-    }
+            if (result.token === null) {
+              setTimeout(
+                function () {
+                  toast.update(id, {
+                    render: result.message,
+                    type: "error",
+                    isLoading: false,
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 1000,
+                  });
+                },
+                [500]
+              );
+            } else {
+              const Token = result.token;
+              sessionStorage.setItem("jwtToken", Token);
+              setTimeout(function () {
+                toast.update(id, {
+                  render: "Sign Up Successfully",
+                  type: "success",
+                  isLoading: false,
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 1500,
+                });
+              }, []);
+              router.push("/");
+            }
+          })
+          .catch((error) => {
+            setTimeout(
+              function () {
+                toast.update(id, {
+                  render: result.message || error,
+                  type: "error",
+                  isLoading: false,
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 1000,
+                });
+              },
+              [500]
+            );
+          });
+      })
+      .catch((err) => {
+        setTimeout(
+          function () {
+            toast.update(id, {
+              render: err,
+              type: "error",
+              isLoading: false,
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 1000,
+            });
+          },
+          [500]
+        );
+      });
   };
   const validatePassword = (password) => {
     const regex =
@@ -60,6 +118,8 @@ export default function SignUp() {
         backgroundPosition: "center",
       }}
     >
+      <ToastContainer />
+
       <main className="w-full h-screen flex flex-col items-center justify-center px-4">
         <div
           className={

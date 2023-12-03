@@ -1,26 +1,26 @@
 "use client";
 import React, { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
-import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { ThemeContext } from "@/components/contextapi/ThemeContext";
 import "react-toastify/dist/ReactToastify.css";
-export default function Login() {
+
+export default function ResetPassword({ params }) {
   const router = useRouter();
 
   const { darkMode } = useContext(ThemeContext);
-  const [passwordError, setPasswordError] = useState("");
-  const handleLoginIn = async (e) => {
+  const email = decodeURIComponent(params.details[0]);
+  const verification_token = decodeURIComponent(params.details[1]);
+  const resetpass = async (e) => {
     e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("pass").value;
-    const data = { email, password };
+    const new_password = document.getElementById("pass").value;
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
-    const id = toast.loading("Checking Credentials...", {
+    const data = { email, new_password, verification_token };
+    const id = toast.loading("Resetting Password", {
       position: toast.POSITION.TOP_RIGHT,
     });
-    await fetch(`${host}/api/login`, {
+    await fetch(`${host}/api/reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,42 +29,25 @@ export default function Login() {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        response
-          .json()
-          .then((result) => {
-            if (result.token === null) {
-              setTimeout(
-                function () {
-                  toast.update(id, {
-                    render: result.message,
-                    type: "error",
-                    isLoading: false,
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 1000,
-                  });
-                },
-                [500]
-              );
-            } else {
-              const Token = result.token;
-              sessionStorage.setItem("jwtToken", Token);
+        response.json().then((result) => {
+          if (result.status_code === 200) {
+            setTimeout(function () {
+              toast.update(id, {
+                render: "Password Reset Successfully",
+                type: "success",
+                isLoading: false,
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 1500,
+              });
               setTimeout(function () {
-                toast.update(id, {
-                  render: "Login Successfully",
-                  type: "success",
-                  isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
-                  autoClose: 1500,
-                });
-              }, []);
-              if (result.token != null) router.push("/");
-            }
-          })
-          .catch((error) => {
+                router.push("/login");
+              }, 1500);
+            }, 1500);
+          } else {
             setTimeout(
               function () {
                 toast.update(id, {
-                  render: error,
+                  render: result.message,
                   type: "error",
                   isLoading: false,
                   position: toast.POSITION.TOP_RIGHT,
@@ -73,13 +56,14 @@ export default function Login() {
               },
               [500]
             );
-          });
+          }
+        });
       })
-      .catch((err) => {
+      .catch((error) => {
         setTimeout(
           function () {
             toast.update(id, {
-              render: err,
+              render: error,
               type: "error",
               isLoading: false,
               position: toast.POSITION.TOP_RIGHT,
@@ -90,6 +74,7 @@ export default function Login() {
         );
       });
   };
+  const [passwordError, setPasswordError] = useState("");
   const validatePassword = (password) => {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!_\-%*?&])[A-Za-z\d_@$\-!%*?&]{6,}$/;
@@ -105,7 +90,6 @@ export default function Login() {
       setPasswordError("");
     }
   };
-
   const backgroundImageURL = "/zen-lang-img.jpg";
 
   return (
@@ -114,7 +98,6 @@ export default function Login() {
       style={{ backgroundImage: `url(${backgroundImageURL})` }}
     >
       <ToastContainer />
-
       <main className="w-full h-screen flex flex-col items-center justify-center px-4 ">
         <div
           className={
@@ -132,37 +115,17 @@ export default function Login() {
                     : "text-gray-800 text-2xl font-bold sm:text-3xl"
                 }
               >
-                Log in to your account
+                RESET PASSWORD
               </h3>
-              <p className="">
-                Don&apos;t have an account?{" "}
-                <Link href="/signup">
-                  <span className="font-medium text-indigo-600 hover:text-indigo-500">
-                    Sign up
-                  </span>
-                </Link>
-              </p>
             </div>
           </div>
           <form
-            onSubmit={(e) => handleLoginIn(e)}
+            onSubmit={(e) => resetpass(e)}
             className="mt-8 space-y-9 ml-20px"
           >
             <div>
-              <label htmlFor="email" className="font-medium">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-            </div>
-            <div>
               <label htmlFor="pass" className="font-medium">
-                Password
+                New Password
               </label>
               <input
                 id="pass"
@@ -176,16 +139,14 @@ export default function Login() {
                 <small style={{ color: "red" }}>{passwordError}</small>
               )}
             </div>
-            <div className="text-center mb-6">
+
+            <div className="text-center mb-1">
               <button className="w-full px-4 py-2  text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-                LOG IN
+                RESET PASSWORD
               </button>
-              <Link href="/forgotpassword">
-                <span className="hover:text-indigo-600 pt-4">
-                  Forgot password?
-                </span>
-              </Link>
             </div>
+            <div></div>
+            <div></div>
           </form>
         </div>
       </main>

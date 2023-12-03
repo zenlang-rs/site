@@ -1,7 +1,10 @@
 "use client";
 import React, { useContext } from "react";
 import Link from "next/link";
-import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { ThemeContext } from "@/components/contextapi/ThemeContext";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ForgotPassword() {
   const { darkMode } = useContext(ThemeContext);
@@ -10,23 +13,59 @@ export default function ForgotPassword() {
     e.preventDefault();
     const email = document.getElementById("email").value;
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
-    
-    const response = await fetch(`${host}/api/send_email/${email}`, {
+    const id = toast.loading("Checking Credentials...", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    await fetch(`${host}/api/send_email/${email}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
-    });
-
-    if (!response.ok) {
-      console.error("HTTP error", response.status);
-    } else {
-      const result = await response.json();
-      alert(result);
-    }
+    })
+      .then((response) => {
+        response.json().then((result) => {
+          if (result.status_code !== 200) {
+            setTimeout(
+              function () {
+                toast.update(id, {
+                  render: result.message,
+                  type: "error",
+                  isLoading: false,
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 1000,
+                });
+              },
+              [500]
+            );
+          } else {
+            setTimeout(function () {
+              toast.update(id, {
+                render: "Email Sent Successfully",
+                type: "success",
+                isLoading: false,
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 1500,
+              });
+            }, []);
+          }
+        });
+      })
+      .catch((error) => {
+        setTimeout(
+          function () {
+            toast.update(id, {
+              render: error,
+              type: "error",
+              isLoading: false,
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 1000,
+            });
+          },
+          [500]
+        );
+      });
   };
-
   const backgroundImageURL = "/zen-lang-img.jpg";
 
   return (
@@ -34,6 +73,7 @@ export default function ForgotPassword() {
       className={darkMode ? "ag dark" : "ag"}
       style={{ backgroundImage: `url(${backgroundImageURL})` }}
     >
+      <ToastContainer />
       <main className="w-full h-screen flex flex-col items-center justify-center px-4 ">
         <div
           className={
@@ -82,7 +122,7 @@ export default function ForgotPassword() {
 
             <div className="text-center mb-1">
               <button className="w-full px-4 py-2  text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-                GET PASSWORD
+                CHANGE PASSWORD
               </button>
             </div>
             <div></div>
