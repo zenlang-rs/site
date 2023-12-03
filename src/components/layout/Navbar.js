@@ -289,20 +289,41 @@ export default function Navbar() {
               <hr className="my-2 w-[95%] border-none h-[2px] rounded-md bg-gray-200" />
               {/* Login, Signup, Quiz in Mobile Menu */}
               {rightLinks.map((link, index) => {
-                return (
-                  <li key={index}>
-                    <Link href={link.href} onClick={toggleMenu}>
+                if (link.isRoute) {
+                  return (
+                    <li key={index}>
+                    <Link key={index} href={link.href}>
                       <span
                         className={
-                          darkMode ? "block text-white" : "block text-black"
+                          darkMode
+                            ? "text-white hover:text-gray-500"
+                            : "text-black hover:text-gray-800"
                         }
                       >
                         {link.name}
                       </span>
                     </Link>
-                  </li>
-                );
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li key={index}>
+                    <button key={index} onClick={link.method}>
+                      <span
+                        className={
+                          darkMode
+                            ? "text-white hover:text-gray-500"
+                            : "text-black hover:text-gray-800"
+                        }
+                      >
+                        {link.name}
+                      </span>
+                    </button>
+                    </li>
+                  );
+                }
               })}
+              
             </ul>
             <hr className="my-2 w-[95%] border-none h-[2px] rounded-md bg-gray-200" />
             <a
