@@ -2,8 +2,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ThemeContext } from "../contextapi/ThemeContext";
 import { hasAuthenticated, logout } from "@/utils/validateJWT";
+import { redirect } from "next/navigation";
 
 export default function Navbar() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -20,6 +22,12 @@ export default function Navbar() {
     { name: "Help", href: "/help" },
   ];
 
+  const logoutAccount = () => {
+    logout();
+    setRightLinks(nonAuthRightLinks);
+    redirect("/")
+  }
+
   const nonAuthRightLinks = [
     {
       name: "Login / Register",
@@ -32,7 +40,7 @@ export default function Navbar() {
   ];
 
   const authRightLinks = [
-    { name: "Logout", isRoute: false, href: "/logout", method: logout },
+    { name: "Logout", isRoute: false, href: null, method: logoutAccount },
     { name: "Quiz", href: "/quiz", isRoute: true, method: undefined },
   ];
 
@@ -44,15 +52,14 @@ export default function Navbar() {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-  
-  // useEffect(() => {
-  //   if (hasAuthenticated()) {
-  //     setRightLinks(authRightLinks)
-  //   } else {
-  //     setRightLinks(nonAuthRightLinks);
-  //   }
-  // }, [])
 
+  useEffect(() => {
+    if (hasAuthenticated()) {
+      setRightLinks(authRightLinks);
+    } else {
+      setRightLinks(nonAuthRightLinks);
+    }
+  }, [usePathname()]);
 
   return (
     <>
@@ -192,7 +199,19 @@ export default function Navbar() {
                     </Link>
                   );
                 } else {
-                  link.method();
+                  return (
+                    <button key={index} onClick={link.method}>
+                      <span
+                        className={
+                          darkMode
+                            ? "text-white hover:text-gray-500"
+                            : "text-black hover:text-gray-800"
+                        }
+                      >
+                        {link.name}
+                      </span>
+                    </button>
+                  );
                 }
               })}
             </div>

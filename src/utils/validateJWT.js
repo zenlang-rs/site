@@ -1,9 +1,7 @@
 import * as jwt from "jsonwebtoken";
-import { redirect } from 'next/navigation';
 
 export const logout = () => {
-//   sessionStorage.removeItem("jwtToken");
-//   redirect("/");
+  sessionStorage.removeItem("jwtToken");
 };
 
 const validateJWT = (token) => {
@@ -11,7 +9,7 @@ const validateJWT = (token) => {
     jwt.verify(token, process.env.JWT_SECRET_KEY);
     return true;
   } catch (ex) {
-    console.log(ex)
+    console.log(ex);
     // sessionStorage.removeItem("jwtToken");
     return false;
   }
@@ -22,7 +20,7 @@ export const hasAuthenticated = () => {
     const token = sessionStorage.getItem("jwtToken");
     return Boolean(token && validateJWT(token));
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return false;
   }
 };
