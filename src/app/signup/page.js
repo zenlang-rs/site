@@ -163,7 +163,7 @@ export default function SignUp() {
             onSubmit={(e) => {
               handleSignUp(e);
             }}
-            className="mt-8 space-y-5 mb-5"
+            className="mt-8 space-y-5 mb-8"
           >
             <div>
               <label

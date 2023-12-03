@@ -48,7 +48,7 @@ const Examples = () => {
           href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
         />
       </Head>
-      <h1 className="text-4xl font-bold mb-8">Code Examples</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Code Examples</h1>
       <div className="container mx-auto mt-8 grid gap-12 grid-cols-1 sm:grid-cols-2">
         {/* First column */}
         <div className="grid gap-8 p-5 border-gray-300 border-2  rounded-lg">

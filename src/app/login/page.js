@@ -123,12 +123,12 @@ export default function Login() {
     >
       <ToastContainer />
 
-      <main className="w-full h-screen flex flex-col items-center justify-center px-4 ">
+      <main className="w-full h-screen flex flex-col items-center justify-center px-4">
         <div
           className={
             darkMode
-              ? "max-w-md w-full text-white px-5 rounded-md py-4 bg-gray-800 shadow-lg"
-              : "max-w-md w-full text-gray-600 px-5 rounded-md py-4 bg-gray-50 shadow-lg"
+              ? "max-w-md w-full pb-8 text-white px-5 rounded-md py-4 bg-gray-800 shadow-lg"
+              : "max-w-md w-full pb-8 text-gray-600 px-5 rounded-md py-4 bg-gray-50 shadow-lg"
           }
         >
           <div className="text-center">
@@ -185,7 +185,7 @@ export default function Login() {
               )}
             </div>
             <div className="text-center mb-6">
-              <button className="w-full px-4 py-2  text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+              <button className="w-full px-4 py-2 mb-4 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
                 LOG IN
               </button>
               <Link href="/forgotpassword">
