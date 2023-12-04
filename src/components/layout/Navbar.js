@@ -292,7 +292,7 @@ export default function Navbar() {
                 if (link.isRoute) {
                   return (
                     <li key={index}>
-                    <Link key={index} href={link.href}>
+                    <Link key={index} href={link.href} onClick={toggleMenu}>
                       <span
                         className={
                           darkMode
@@ -308,7 +308,7 @@ export default function Navbar() {
                 } else {
                   return (
                     <li key={index}>
-                    <button key={index} onClick={link.method}>
+                    <button key={index} onClick={()=>{toggleMenu(); link.method();}}>
                       <span
                         className={
                           darkMode

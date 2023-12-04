@@ -8,7 +8,7 @@ export const quizData = {
     },
     testCases: {
       sample: [
-        { input: "299", expected_output: "YES" },
+        { input: "299", expected_output: "NO" },
         { input: "1450", expected_output: "NO" },
         { input: "2000", expected_output: "YES" },
       ],
