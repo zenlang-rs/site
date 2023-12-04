@@ -1,14 +1,29 @@
 "use client";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ThemeContext } from "../contextapi/ThemeContext";
+import { ThemeProvider, useTheme } from "next-themes";
 import { hasAuthenticated, logout } from "@/utils/auth";
 import { redirect } from "next/navigation";
 
 export default function Navbar() {
-  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
+
+  const toggleDarkMode = () => {
+    if (theme === "dark") {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
+  };
+
   const logo = {
     src: darkMode ? "/logo-dark.png" : "/logo.png",
     alt: "Zen Logo",
@@ -25,8 +40,8 @@ export default function Navbar() {
   const logoutAccount = () => {
     logout();
     setRightLinks(nonAuthRightLinks);
-    redirect("/")
-  }
+    redirect("/");
+  };
 
   const nonAuthRightLinks = [
     {
@@ -292,38 +307,43 @@ export default function Navbar() {
                 if (link.isRoute) {
                   return (
                     <li key={index}>
-                    <Link key={index} href={link.href} onClick={toggleMenu}>
-                      <span
-                        className={
-                          darkMode
-                            ? "text-white hover:text-gray-500"
-                            : "text-black hover:text-gray-800"
-                        }
-                      >
-                        {link.name}
-                      </span>
-                    </Link>
+                      <Link key={index} href={link.href} onClick={toggleMenu}>
+                        <span
+                          className={
+                            darkMode
+                              ? "text-white hover:text-gray-500"
+                              : "text-black hover:text-gray-800"
+                          }
+                        >
+                          {link.name}
+                        </span>
+                      </Link>
                     </li>
                   );
                 } else {
                   return (
                     <li key={index}>
-                    <button key={index} onClick={()=>{toggleMenu(); link.method();}}>
-                      <span
-                        className={
-                          darkMode
-                            ? "text-white hover:text-gray-500"
-                            : "text-black hover:text-gray-800"
-                        }
+                      <button
+                        key={index}
+                        onClick={() => {
+                          toggleMenu();
+                          link.method();
+                        }}
                       >
-                        {link.name}
-                      </span>
-                    </button>
+                        <span
+                          className={
+                            darkMode
+                              ? "text-white hover:text-gray-500"
+                              : "text-black hover:text-gray-800"
+                          }
+                        >
+                          {link.name}
+                        </span>
+                      </button>
                     </li>
                   );
                 }
               })}
-              
             </ul>
             <hr className="my-2 w-[95%] border-none h-[2px] rounded-md bg-gray-200" />
             <a

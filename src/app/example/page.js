@@ -1,12 +1,19 @@
 "use client";
 import Head from "next/head";
-import { useContext } from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 import { handleEditorDidMount } from "@/utils/editor";
+import { useEffect, useState } from "react";
 
 const ExampleCard = ({ title, code, description, height }) => {
-  const { darkMode } = useContext(ThemeContext);
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
+
   return (
     <div>
       <h2 className="text-xl font-semibold mb-5 pb-5">{title}</h2>
@@ -14,7 +21,9 @@ const ExampleCard = ({ title, code, description, height }) => {
         <Editor
           height={`${height}vh`}
           defaultLanguage="zenlang"
-          onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+          onMount={(editor, monaco) => {
+            handleEditorDidMount(editor, monaco);
+          }}
           defaultValue={code}
           options={{
             padding: { top: 12 },
@@ -33,7 +42,14 @@ const ExampleCard = ({ title, code, description, height }) => {
 };
 
 const Examples = () => {
-  const { darkMode } = useContext(ThemeContext);
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
+
   return (
     <main
       className={

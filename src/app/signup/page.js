@@ -1,24 +1,31 @@
 "use client";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { redirect } from "next/navigation";
 import { hasAuthenticated } from "@/utils/auth";
 
 export default function SignUp() {
-  
   useEffect(() => {
     if (hasAuthenticated()) {
       redirect("/");
     }
-  }, [])
+  }, []);
 
   const router = useRouter();
-  const { darkMode } = useContext(ThemeContext);
+
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
+
   const [passwordError, setPasswordError] = useState("");
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -42,7 +49,6 @@ export default function SignUp() {
         response
           .json()
           .then((result) => {
-
             if (result.token === null) {
               setTimeout(
                 function () {
@@ -54,7 +60,7 @@ export default function SignUp() {
                     autoClose: 1000,
                   });
                 },
-                [500]
+                [500],
               );
             } else {
               const Token = result.token;
@@ -82,7 +88,7 @@ export default function SignUp() {
                   autoClose: 1000,
                 });
               },
-              [500]
+              [500],
             );
           });
       })
@@ -97,7 +103,7 @@ export default function SignUp() {
               autoClose: 1000,
             });
           },
-          [500]
+          [500],
         );
       });
   };
@@ -110,7 +116,7 @@ export default function SignUp() {
   const handlePasswordChange = (event) => {
     if (!validatePassword(event.target.value)) {
       setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
       );
     } else {
       setPasswordError("");
@@ -121,7 +127,9 @@ export default function SignUp() {
 
   return (
     <div
-      className={darkMode ? "ag dark" : "ag"}
+      className={
+        darkMode ? "bg-no-repeat bg-cover ag dark" : "bg-no-repeat bg-cover ag"
+      }
       style={{
         backgroundImage: `url(${backgroundImageURL})`,
         backgroundSize: "cover",

@@ -77,7 +77,7 @@ export function handleEditorDidMount(editor, monaco, editorRef) {
         position.lineNumber,
         wordUntil.startColumn,
         position.lineNumber,
-        wordUntil.endColumn
+        wordUntil.endColumn,
       );
 
       // Suggestions array
@@ -90,7 +90,7 @@ export function handleEditorDidMount(editor, monaco, editorRef) {
           kind: monaco.languages.CompletionItemKind.Keyword,
           insertText: keyword,
           range: range,
-        }))
+        })),
       );
 
       return { suggestions };

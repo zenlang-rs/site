@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
-import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 import "react-toastify/dist/ReactToastify.css";
 import { hasAuthenticated } from "@/utils/auth";
 export default function Login() {
@@ -14,10 +14,16 @@ export default function Login() {
     if (hasAuthenticated()) {
       redirect("/");
     }
-  }, [])
+  }, []);
 
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
 
-  const { darkMode } = useContext(ThemeContext);
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
+
   const [passwordError, setPasswordError] = useState("");
   const handleLoginIn = async (e) => {
     e.preventDefault();
@@ -51,7 +57,7 @@ export default function Login() {
                     autoClose: 1000,
                   });
                 },
-                [500]
+                [500],
               );
             } else {
               const Token = result.token;
@@ -79,7 +85,7 @@ export default function Login() {
                   autoClose: 1000,
                 });
               },
-              [500]
+              [500],
             );
           });
       })
@@ -94,7 +100,7 @@ export default function Login() {
               autoClose: 1000,
             });
           },
-          [500]
+          [500],
         );
       });
   };
@@ -107,7 +113,7 @@ export default function Login() {
   const handlePasswordChange = (event) => {
     if (!validatePassword(event.target.value)) {
       setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
       );
     } else {
       setPasswordError("");
@@ -118,7 +124,9 @@ export default function Login() {
 
   return (
     <div
-      className={darkMode ? "ag dark" : "ag"}
+      className={
+        darkMode ? "bg-no-repeat bg-cover ag dark" : "bg-no-repeat bg-cover ag"
+      }
       style={{ backgroundImage: `url(${backgroundImageURL})` }}
     >
       <ToastContainer />

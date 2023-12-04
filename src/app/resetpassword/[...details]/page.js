@@ -1,15 +1,22 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
-import { ThemeContext } from "@/components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ResetPassword({ params }) {
   const router = useRouter();
 
-  const { darkMode } = useContext(ThemeContext);
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
+
   const email = decodeURIComponent(params.details[0]);
   const verification_token = decodeURIComponent(params.details[1]);
   const resetpass = async (e) => {
@@ -54,7 +61,7 @@ export default function ResetPassword({ params }) {
                   autoClose: 1000,
                 });
               },
-              [500]
+              [500],
             );
           }
         });
@@ -70,7 +77,7 @@ export default function ResetPassword({ params }) {
               autoClose: 1000,
             });
           },
-          [500]
+          [500],
         );
       });
   };
@@ -84,7 +91,7 @@ export default function ResetPassword({ params }) {
   const handlePasswordChange = (event) => {
     if (!validatePassword(event.target.value)) {
       setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
       );
     } else {
       setPasswordError("");
@@ -94,7 +101,9 @@ export default function ResetPassword({ params }) {
 
   return (
     <div
-      className={darkMode ? "ag dark" : "ag"}
+      className={
+        darkMode ? "bg-no-repeat bg-cover ag dark" : "bg-no-repeat bg-cover ag"
+      }
       style={{ backgroundImage: `url(${backgroundImageURL})` }}
     >
       <ToastContainer />

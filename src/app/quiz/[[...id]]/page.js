@@ -1,7 +1,7 @@
 "use client";
-import React, { useRef, useState, useContext, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "../../../components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 import { quizData, defaultQuiz } from "./getQuiz";
 import OutputDataVisualization from "@/components/OutputDataVisualization";
 import { redirect } from "next/navigation";
@@ -9,11 +9,11 @@ import { hasAuthenticated } from "@/utils/auth";
 import { handleEditorDidMount } from "@/utils/editor";
 
 export default function Quiz({ params }) {
-  useEffect(()=>{
+  useEffect(() => {
     if (!hasAuthenticated()) {
       redirect("/login");
     }
-  }, [])
+  }, []);
 
   function getQuizById(id) {
     return quizData[id] || defaultQuiz;
@@ -26,7 +26,14 @@ export default function Quiz({ params }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const editorRef = useRef(null);
-  const { darkMode } = useContext(ThemeContext);
+
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
 
   function runActualTest() {
     showValue(quiz.testCases.real);
@@ -94,7 +101,9 @@ export default function Quiz({ params }) {
             height="50vh"
             defaultLanguage="zenlang"
             defaultValue={quiz.sampleCode}
-            onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco, editorRef)}}
+            onMount={(editor, monaco) => {
+              handleEditorDidMount(editor, monaco, editorRef);
+            }}
           />
         </section>
         <div className="p-4 space-x-4 text-end">
@@ -126,7 +135,7 @@ export default function Quiz({ params }) {
           ) : error ? (
             <p className="whitespace-pre-wrap text-red-500">{error}</p>
           ) : (
-            <OutputDataVisualization data={output} />
+            <OutputDataVisualization data={output} darkMode={darkMode} />
           )}
         </section>
       </div>

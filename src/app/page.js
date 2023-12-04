@@ -1,7 +1,7 @@
 "use client";
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "../components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 import { handleEditorDidMount } from "@/utils/editor";
 
 export default function Home() {
@@ -11,7 +11,13 @@ export default function Home() {
   const [isInputCheckboxChecked, setIsInputCheckboxChecked] = useState(false);
   const [textareaContent, setTextareaContent] = useState("");
   const editorRef = useRef(null);
-  const { darkMode } = useContext(ThemeContext);
+
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
 
   const sampleCode =
     'PARAMPARA PRATISHTA ANUSHASHAN\nPRINT BASANTI PRINT "Hello, Zen!"\nKHATAM TATA BYE BYE';
@@ -90,7 +96,9 @@ export default function Home() {
           height="40vh"
           defaultLanguage="zenlang"
           defaultValue={sampleCode}
-          onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco, editorRef)}}
+          onMount={(editor, monaco) => {
+            handleEditorDidMount(editor, monaco, editorRef);
+          }}
           options={{
             padding: { top: 12 },
             minimap: { enabled: false },
@@ -162,7 +170,7 @@ export default function Home() {
           <div
             className={
               darkMode
-                ? "p-6 bg-black shadow-md shadow-slate-400 rounded-md min-h-[20vh]"
+                ? "p-6 bg-black border-2 border-white rounded-md min-h-[20vh]"
                 : "p-6 bg-white shadow-md shadow-slate-400 rounded-md min-h-[20vh]"
             }
           >

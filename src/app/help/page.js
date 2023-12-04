@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 
 // Define your variables for text and contributors
 
@@ -20,19 +20,19 @@ const contributorsData = [
     name: "rootCircle",
     githubLink: "https://github.com/rootCircle",
     avatarUrl: "https://github.com/rootCircle.png",
-    areas: ["maintainer", "compiler", "backend", "website"]
+    areas: ["maintainer", "compiler", "backend", "website"],
   },
   {
     name: "mohit07raghav19",
     githubLink: "https://github.com/mohit07raghav19",
     avatarUrl: "https://github.com/mohit07raghav19.png",
-    areas: ["compiler", "backend", "website"]
+    areas: ["compiler", "backend", "website"],
   },
   {
     name: "Harshit-Chordiya",
     githubLink: "https://github.com/Harshit-Chordiya",
     avatarUrl: "https://github.com/Harshit-Chordiya.png",
-    areas: ["website"]
+    areas: ["website"],
   },
 ];
 
@@ -41,7 +41,15 @@ const maxContributorsToShow = 3;
 
 function Help() {
   const [showAllContributors, setShowAllContributors] = useState(false);
-  const { darkMode } = useContext(ThemeContext);
+
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
+
   const visibleContributors = showAllContributors
     ? contributorsData
     : contributorsData.slice(0, maxContributorsToShow);
@@ -53,7 +61,11 @@ function Help() {
     height: 200,
   };
   return (
-    <main className="text-center p-8">
+    <main
+      className={
+        darkMode ? "bg-black text-center p-8" : "bg-white text-center p-8"
+      }
+    >
       <Image
         className="mx-auto"
         alt={logo.alt}
@@ -97,7 +109,7 @@ function Help() {
             <li
               className={
                 darkMode
-                  ? "p-4 bg-black shadow-md rounded-lg text-center text-white"
+                  ? "p-4 bg-black border-white border-2 rounded-lg text-center text-white"
                   : "p-4 bg-white shadow-md rounded-lg text-center text-black"
               }
               key={index}

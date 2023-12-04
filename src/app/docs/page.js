@@ -1,12 +1,16 @@
 "use client";
-import { useContext } from "react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
-import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 import { handleEditorDidMount } from "@/utils/editor";
 
 function Docs() {
-  const { darkMode } = useContext(ThemeContext);
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
 
   return (
     <main
@@ -46,7 +50,9 @@ function Docs() {
             <Editor
               className="mb-4 mt-4"
               height={`20vh`}
-              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+              onMount={(editor, monaco) => {
+                handleEditorDidMount(editor, monaco);
+              }}
               defaultLanguage="zenlang"
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 PRINT BASANTI PRINT "Hello, Zen!"
@@ -104,7 +110,9 @@ KHATAM TATA BYE BYE`}
                 className="mb-4 mt-4"
                 height={`20vh`}
                 defaultLanguage="zenlang"
-                onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+                onMount={(editor, monaco) => {
+                  handleEditorDidMount(editor, monaco);
+                }}
                 defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 10
 KHATAM TATA BYE BYE`}
@@ -134,7 +142,9 @@ KHATAM TATA BYE BYE`}
               className="mb-4 mt-4"
               height={`20vh`}
               defaultLanguage="zenlang"
-              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+              onMount={(editor, monaco) => {
+                handleEditorDidMount(editor, monaco);
+              }}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 C BOLE TOH INPUT LE LE RE BABA
 KHATAM TATA BYE BYE`}
@@ -164,7 +174,9 @@ KHATAM TATA BYE BYE`}
               className="mb-4 mt-4"
               height={`22vh`}
               defaultLanguage="zenlang"
-              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+              onMount={(editor, monaco) => {
+                handleEditorDidMount(editor, monaco);
+              }}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 12
 PRINT BASANTI PRINT A
@@ -178,8 +190,8 @@ KHATAM TATA BYE BYE`}
               }}
             />
             <p className="text-lg leading-relaxed">
-              Zen expresses its love for coding by printing the message
-             12 to the console.
+              Zen expresses its love for coding by printing the message 12 to
+              the console.
             </p>
           </section>
           {/* AGAR, WARNA AGAR, NHI TOH Section */}
@@ -226,7 +238,9 @@ KHATAM TATA BYE BYE`}
               className="mb-4 mt-4"
               height={`39vh`}
               defaultLanguage="zenlang"
-              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+              onMount={(editor, monaco) => {
+                handleEditorDidMount(editor, monaco);
+              }}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 10
 AGAR A > 5 TAB
@@ -262,7 +276,9 @@ KHATAM TATA BYE BYE`}
             <Editor
               height={`25vh`}
               defaultLanguage="zenlang"
-              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+              onMount={(editor, monaco) => {
+                handleEditorDidMount(editor, monaco);
+              }}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 1
 JAB TAK HAI JAAN A < 5 TAB TAK
@@ -298,7 +314,9 @@ KHATAM TATA BYE BYE`}
               className="mb-4 mt-4"
               height={`20vh`}
               defaultLanguage="zenlang"
-              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+              onMount={(editor, monaco) => {
+                handleEditorDidMount(editor, monaco);
+              }}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 5  @ This is a comment
 PRINT BASANTI PRINT A
@@ -319,7 +337,11 @@ KHATAM TATA BYE BYE`}
               affecting how the program behaves. Happy commenting! 📝✨
             </p>
           </section>
-          <h1 className="text-center text-2xl pt-5 italic shadow-lg p-4 ">
+          <h1
+            className={`text-center text-xl pt-5 italic p-4 ${
+              darkMode ? "border-2 border-white" : "shadow-lg"
+            }`}
+          >
             {" "}
             So, are you ready to start your Zen adventure? Dive in, have fun,
             and let your imagination run wild! Remember, in Zen, coding is not

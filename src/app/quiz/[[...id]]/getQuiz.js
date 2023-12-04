@@ -16,7 +16,7 @@ export const quizData = {
         { input: "2999", expected_output: "YES" },
         { input: "1450", expected_output: "NO" },
         { input: "2000", expected_output: "YES" },
-      ]
+      ],
     },
     problemStatement: {
       title: "PROBLEM STATEMENT",
@@ -68,7 +68,7 @@ export const quizData = {
     output: "",
     constraints: {
       T: { min: 1, max: 100 },
-      N: { min: 1, max: 10^9 },
+      N: { min: 1, max: 10 ^ 9 },
     },
     testCases: {
       sample: [
@@ -132,7 +132,7 @@ export const quizData = {
     output: "",
     constraints: {
       T: { min: 1, max: 100 },
-      N: { min: -10^9, max: 10^9 },
+      N: { min: -10 ^ 9, max: 10 ^ 9 },
     },
     testCases: {
       sample: [
@@ -193,43 +193,42 @@ export const quizData = {
   },
 };
 
-
 export const defaultQuiz = {
-    sampleCode: "",
-    output: "",
-    constraints: {
-      T: { min: 0, max: 0 },
-      X: { min: 0, max: 0 },
+  sampleCode: "",
+  output: "",
+  constraints: {
+    T: { min: 0, max: 0 },
+    X: { min: 0, max: 0 },
+  },
+  testCases: {
+    sample: [],
+    real: [],
+  },
+  problemStatement: {
+    title: "",
+    content: [],
+  },
+  inputFormat: {
+    title: "",
+    content: [],
+  },
+  outputFormat: {
+    title: "",
+    content: [],
+  },
+  constraints: {
+    title: "",
+    content: [],
+  },
+  sampleInputOutput: {
+    title: "",
+    table: {
+      headers: [],
+      rows: [],
     },
-    testCases: {
-      sample: [],
-      real: []
-    },
-    problemStatement: {
-      title: "",
-      content: [],
-    },
-    inputFormat: {
-      title: "",
-      content: [],
-    },
-    outputFormat: {
-      title: "",
-      content: [],
-    },
-    constraints: {
-      title: "",
-      content: [],
-    },
-    sampleInputOutput: {
-      title: "",
-      table: {
-        headers: [],
-        rows: [],
-      },
-    },
-    explanation: {
-      title: "",
-      content: [],
-    },
-  };
+  },
+  explanation: {
+    title: "",
+    content: [],
+  },
+};

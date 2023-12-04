@@ -1,13 +1,19 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { ThemeContext } from "@/components/contextapi/ThemeContext";
+import { useTheme } from "next-themes";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ForgotPassword() {
-  const { darkMode } = useContext(ThemeContext);
+  const [darkMode, setDarkMode] = useState(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+    setDarkMode(currentTheme === "dark");
+  }, [systemTheme, theme]);
 
   const sendMail = async (e) => {
     e.preventDefault();
@@ -36,7 +42,7 @@ export default function ForgotPassword() {
                   autoClose: 1000,
                 });
               },
-              [500]
+              [500],
             );
           } else {
             setTimeout(function () {
@@ -62,7 +68,7 @@ export default function ForgotPassword() {
               autoClose: 1000,
             });
           },
-          [500]
+          [500],
         );
       });
   };
@@ -70,7 +76,9 @@ export default function ForgotPassword() {
 
   return (
     <div
-      className={darkMode ? "ag dark" : "ag"}
+      className={
+        darkMode ? "bg-no-repeat bg-cover ag dark" : "bg-no-repeat bg-cover ag"
+      }
       style={{ backgroundImage: `url(${backgroundImageURL})` }}
     >
       <ToastContainer />
