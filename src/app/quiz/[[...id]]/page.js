@@ -5,7 +5,8 @@ import { ThemeContext } from "../../../components/contextapi/ThemeContext";
 import { quizData, defaultQuiz } from "./getQuiz";
 import OutputDataVisualization from "@/components/OutputDataVisualization";
 import { redirect } from "next/navigation";
-import { hasAuthenticated } from "@/utils/validateJWT";
+import { hasAuthenticated } from "@/utils/auth";
+import { handleEditorDidMount } from "@/utils/editor";
 
 export default function Quiz({ params }) {
   useEffect(()=>{
@@ -26,10 +27,6 @@ export default function Quiz({ params }) {
   const [error, setError] = useState(null);
   const editorRef = useRef(null);
   const { darkMode } = useContext(ThemeContext);
-
-  function handleEditorDidMount(editor, monaco) {
-    editorRef.current = editor;
-  }
 
   function runActualTest() {
     showValue(quiz.testCases.real);
@@ -95,10 +92,9 @@ export default function Quiz({ params }) {
         <section className="py-4 rounded-sm overflow-auto md:ml-6 md:order-first">
           <Editor
             height="50vh"
-            defaultLanguage="rust"
+            defaultLanguage="zenlang"
             defaultValue={quiz.sampleCode}
-            theme={darkMode ? "light" : "vs-dark"}
-            onMount={handleEditorDidMount}
+            onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco, editorRef)}}
           />
         </section>
         <div className="p-4 space-x-4 text-end">

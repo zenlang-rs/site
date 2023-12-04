@@ -2,6 +2,7 @@
 import React, { useRef, useState, useContext } from "react";
 import Editor from "@monaco-editor/react";
 import { ThemeContext } from "../components/contextapi/ThemeContext";
+import { handleEditorDidMount } from "@/utils/editor";
 
 export default function Home() {
   const [output, setOutput] = useState("");
@@ -14,10 +15,6 @@ export default function Home() {
 
   const sampleCode =
     'PARAMPARA PRATISHTA ANUSHASHAN\nPRINT BASANTI PRINT "Hello, Zen!"\nKHATAM TATA BYE BYE';
-
-  function handleEditorDidMount(editor, monaco) {
-    editorRef.current = editor;
-  }
 
   async function showValue() {
     const code = editorRef.current.getValue();
@@ -91,10 +88,9 @@ export default function Home() {
       <section className="py-4 rounded-sm">
         <Editor
           height="40vh"
-          defaultLanguage="rust"
+          defaultLanguage="zenlang"
           defaultValue={sampleCode}
-          theme={darkMode ? "vs" : "vs-dark"}
-          onMount={handleEditorDidMount}
+          onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco, editorRef)}}
           options={{
             padding: { top: 12 },
             minimap: { enabled: false },

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import { ThemeContext } from "../../components/contextapi/ThemeContext";
 import "react-toastify/dist/ReactToastify.css";
-import { hasAuthenticated } from "@/utils/validateJWT";
+import { hasAuthenticated } from "@/utils/auth";
 export default function Login() {
   const router = useRouter();
 

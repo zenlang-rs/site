@@ -3,6 +3,7 @@ import { useContext } from "react";
 import React from "react";
 import Editor from "@monaco-editor/react";
 import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { handleEditorDidMount } from "@/utils/editor";
 
 function Docs() {
   const { darkMode } = useContext(ThemeContext);
@@ -45,11 +46,11 @@ function Docs() {
             <Editor
               className="mb-4 mt-4"
               height={`20vh`}
-              defaultLanguage="rust"
+              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
+              defaultLanguage="zenlang"
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 PRINT BASANTI PRINT "Hello, Zen!"
 KHATAM TATA BYE BYE`}
-              theme={darkMode ? "light" : "vs-dark"}
               options={{
                 padding: { top: 12 },
                 readOnly: true,
@@ -102,11 +103,11 @@ KHATAM TATA BYE BYE`}
               <Editor
                 className="mb-4 mt-4"
                 height={`20vh`}
-                defaultLanguage="rust"
+                defaultLanguage="zenlang"
+                onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
                 defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 10
 KHATAM TATA BYE BYE`}
-                theme={darkMode ? "light" : "vs-dark"}
                 options={{
                   padding: { top: 12 },
                   readOnly: true,
@@ -132,11 +133,11 @@ KHATAM TATA BYE BYE`}
             <Editor
               className="mb-4 mt-4"
               height={`20vh`}
-              defaultLanguage="rust"
+              defaultLanguage="zenlang"
+              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 C BOLE TOH INPUT LE LE RE BABA
 KHATAM TATA BYE BYE`}
-              theme={darkMode ? "light" : "vs-dark"}
               options={{
                 padding: { top: 12 },
                 readOnly: true,
@@ -162,12 +163,12 @@ KHATAM TATA BYE BYE`}
             <Editor
               className="mb-4 mt-4"
               height={`22vh`}
-              defaultLanguage="rust"
+              defaultLanguage="zenlang"
+              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 12
 PRINT BASANTI PRINT A
 KHATAM TATA BYE BYE`}
-              theme={darkMode ? "light" : "vs-dark"}
               options={{
                 padding: { top: 12 },
                 readOnly: true,
@@ -224,7 +225,8 @@ KHATAM TATA BYE BYE`}
             <Editor
               className="mb-4 mt-4"
               height={`39vh`}
-              defaultLanguage="rust"
+              defaultLanguage="zenlang"
+              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 10
 AGAR A > 5 TAB
@@ -235,7 +237,6 @@ NHI TOH
   PRINT BASANTI PRINT "A is less than 5!"
 BAS ITNA HI
 KHATAM TATA BYE BYE`}
-              theme={darkMode ? "light" : "vs-dark"}
               options={{
                 padding: { top: 12 },
                 readOnly: true,
@@ -260,7 +261,8 @@ KHATAM TATA BYE BYE`}
 
             <Editor
               height={`25vh`}
-              defaultLanguage="rust"
+              defaultLanguage="zenlang"
+              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 1
 JAB TAK HAI JAAN A < 5 TAB TAK
@@ -268,7 +270,6 @@ JAB TAK HAI JAAN A < 5 TAB TAK
   A BOLE TOH A + 1
 JAHAN
 KHATAM TATA BYE BYE`}
-              theme={darkMode ? "light" : "vs-dark"}
               options={{
                 padding: { top: 12 },
                 readOnly: true,
@@ -296,12 +297,12 @@ KHATAM TATA BYE BYE`}
             <Editor
               className="mb-4 mt-4"
               height={`20vh`}
-              defaultLanguage="rust"
+              defaultLanguage="zenlang"
+              onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
               defaultValue={`PARAMPARA PRATISHTA ANUSHASHAN
 A BOLE TOH 5  @ This is a comment
 PRINT BASANTI PRINT A
 KHATAM TATA BYE BYE`}
-              theme={darkMode ? "light" : "vs-dark"}
               options={{
                 padding: { top: 12 },
                 readOnly: true,

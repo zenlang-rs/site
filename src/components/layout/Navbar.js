@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ThemeContext } from "../contextapi/ThemeContext";
-import { hasAuthenticated, logout } from "@/utils/validateJWT";
+import { hasAuthenticated, logout } from "@/utils/auth";
 import { redirect } from "next/navigation";
 
 export default function Navbar() {

@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useContext } from "react";
 import Editor from "@monaco-editor/react";
 import { ThemeContext } from "../../components/contextapi/ThemeContext";
+import { handleEditorDidMount } from "@/utils/editor";
 
 const ExampleCard = ({ title, code, description, height }) => {
   const { darkMode } = useContext(ThemeContext);
@@ -12,9 +13,9 @@ const ExampleCard = ({ title, code, description, height }) => {
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg mb-8">
         <Editor
           height={`${height}vh`}
-          defaultLanguage="rust"
+          defaultLanguage="zenlang"
+          onMount={(editor, monaco) => {handleEditorDidMount(editor, monaco)}}
           defaultValue={code}
-          theme={darkMode ? "light" : "vs-dark"}
           options={{
             padding: { top: 12 },
             readOnly: true,
@@ -197,7 +198,7 @@ const Examples = () => {
           <ExampleCard
             title="Example 10: Simple Calculator"
             code={
-              'PARAMPARA PRATISHTA ANUSHASHAN\n PRINT BASANTI PRINT "Enter two numbers:"\n num1 BOLE TOH INPUT LE LE RE BABA\n num2 BOLE TOH INPUT LE LE RE BABA\n result BOLE TOH 0\n PRINT BASANTI PRINT "Select operation (1-4) (1. Addition , 2. Subtraction, 3.\n Multiplication, 4. Division):"\n opr BOLE TOH INPUT LE LE RE BABA\n AGAR opr == 1 TAB\n   result BOLE TOH num1 + num2\n WARNA AGAR opr == 2 TAB\n   result BOLE TOH num1 - num2\n WARNA AGAR opr == 3 TAB\n   result BOLE TOH num1 * num2\n WARNA AGAR opr == 4 TAB\n   result BOLE TOH num1 / num2\n NHI TOH\n   PRINT BASANTI PRINT "Invalid operation!"\n BAS ITNA HI\n PRINT BASANTI PRINT result\n KHATAM TATA BYE BYE'
+              'PARAMPARA PRATISHTA ANUSHASHAN\n PRINT BASANTI PRINT "Enter two numbers:"\n num1 BOLE TOH INPUT LE LE RE BABA\n num2 BOLE TOH INPUT LE LE RE BABA\n result BOLE TOH 0\n PRINT BASANTI PRINT "Select operation (1-4) (1. Addition , 2. Subtraction, 3. Multiplication, 4. Division):"\n opr BOLE TOH INPUT LE LE RE BABA\n AGAR opr == 1 TAB\n   result BOLE TOH num1 + num2\n WARNA AGAR opr == 2 TAB\n   result BOLE TOH num1 - num2\n WARNA AGAR opr == 3 TAB\n   result BOLE TOH num1 * num2\n WARNA AGAR opr == 4 TAB\n   result BOLE TOH num1 / num2\n NHI TOH\n   PRINT BASANTI PRINT "Invalid operation!"\n BAS ITNA HI\n PRINT BASANTI PRINT result\n KHATAM TATA BYE BYE'
             }
             description="This program performs basic arithmetic operations based on user input."
             height={50}

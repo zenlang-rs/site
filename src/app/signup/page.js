@@ -7,7 +7,7 @@ import { ThemeContext } from "../../components/contextapi/ThemeContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { redirect } from "next/navigation";
-import { hasAuthenticated } from "@/utils/validateJWT";
+import { hasAuthenticated } from "@/utils/auth";
 
 export default function SignUp() {
   
