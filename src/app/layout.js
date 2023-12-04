@@ -76,7 +76,7 @@ export default function RootLayout({ children }) {
         <meta name="next-size-adjust" />
       </head>
       <body className={`${inter.className} min-h-screen`}>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="dark">
           <div>
             <Navbar />
           </div>
