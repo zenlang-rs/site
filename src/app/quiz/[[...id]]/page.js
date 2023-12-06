@@ -7,14 +7,17 @@ import OutputDataVisualization from "@/components/OutputDataVisualization";
 import { redirect } from "next/navigation";
 import { hasAuthenticated } from "@/utils/auth";
 import { handleEditorDidMount } from "@/utils/editor";
+import { useRouter } from "next/navigation";
 
 export default function Quiz({ params }) {
+  const router = useRouter();
   useEffect(() => {
     if (!hasAuthenticated()) {
-      redirect("/login");
+      setTimeout(() => {
+        router.replace("/login?message=Please Login to Access Quiz");
+      }, 0);
     }
   }, []);
-
   function getQuizById(id) {
     return quizData[id] || defaultQuiz;
   }

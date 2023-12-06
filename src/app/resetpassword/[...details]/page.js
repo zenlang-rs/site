@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import { sha256 } from "js-sha256";
 import { useTheme } from "next-themes";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -21,7 +22,8 @@ export default function ResetPassword({ params }) {
   const verification_token = decodeURIComponent(params.details[1]);
   const resetpass = async (e) => {
     e.preventDefault();
-    const new_password = document.getElementById("pass").value;
+    let new_password = document.getElementById("pass").value;
+    new_password = sha256(password);
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     const data = { email, new_password, verification_token };
     const id = toast.loading("Resetting Password", {
@@ -61,7 +63,7 @@ export default function ResetPassword({ params }) {
                   autoClose: 1000,
                 });
               },
-              [500],
+              [500]
             );
           }
         });
@@ -77,7 +79,7 @@ export default function ResetPassword({ params }) {
               autoClose: 1000,
             });
           },
-          [500],
+          [500]
         );
       });
   };
@@ -91,7 +93,7 @@ export default function ResetPassword({ params }) {
   const handlePasswordChange = (event) => {
     if (!validatePassword(event.target.value)) {
       setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
       );
     } else {
       setPasswordError("");

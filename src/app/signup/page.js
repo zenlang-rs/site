@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { sha256 } from "js-sha256";
 import { toast } from "react-toastify";
 import { useTheme } from "next-themes";
 import { ToastContainer } from "react-toastify";
@@ -32,7 +33,8 @@ export default function SignUp() {
     const name = document.getElementById("name").value;
     const username = document.getElementById("uname").value;
     const email = document.getElementById("email").value;
-    const password = document.getElementById("pass").value;
+    let password = document.getElementById("pass").value;
+    password = sha256(password);
     const data = { name, username, email, password };
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     const id = toast.loading("Checking Credentials...", {
@@ -60,7 +62,7 @@ export default function SignUp() {
                     autoClose: 1000,
                   });
                 },
-                [500],
+                [500]
               );
             } else {
               const Token = result.token;
@@ -74,7 +76,11 @@ export default function SignUp() {
                   autoClose: 1500,
                 });
               }, []);
-              router.push("/");
+              if (result.token != null) {
+                setTimeout(() => {
+                  router.push("/");
+                }, 1500);
+              }
             }
           })
           .catch((error) => {
@@ -88,7 +94,7 @@ export default function SignUp() {
                   autoClose: 1000,
                 });
               },
-              [500],
+              [500]
             );
           });
       })
@@ -103,7 +109,7 @@ export default function SignUp() {
               autoClose: 1000,
             });
           },
-          [500],
+          [500]
         );
       });
   };
@@ -116,7 +122,7 @@ export default function SignUp() {
   const handlePasswordChange = (event) => {
     if (!validatePassword(event.target.value)) {
       setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
       );
     } else {
       setPasswordError("");

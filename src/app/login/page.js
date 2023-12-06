@@ -2,23 +2,35 @@
 import React, { useState, useEffect } from "react";
 import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
+import { sha256 } from "js-sha256";
 import { ToastContainer } from "react-toastify";
 import { useTheme } from "next-themes";
 import "react-toastify/dist/ReactToastify.css";
 import { hasAuthenticated } from "@/utils/auth";
 export default function Login() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const message = searchParams.get("message");
+  const [hasShownMessage, setHasShownMessage] = useState(false);
 
+  useEffect(() => {
+    if (message && !hasShownMessage) {
+      const notify = (message) => toast(message, { type: "error" });
+      notify(message);
+      setHasShownMessage(true);
+    }
+  }, []);
+
+  // sForce.one.showToast({"message": message, "type": "error"});
   useEffect(() => {
     if (hasAuthenticated()) {
       redirect("/");
     }
   }, []);
-
   const [darkMode, setDarkMode] = useState(false);
   const { systemTheme, theme, setTheme } = useTheme();
-
   useEffect(() => {
     const currentTheme = theme === "system" ? systemTheme : theme;
     setDarkMode(currentTheme === "dark");
@@ -28,7 +40,8 @@ export default function Login() {
   const handleLoginIn = async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
-    const password = document.getElementById("pass").value;
+    let password = document.getElementById("pass").value;
+    password = sha256(password);
     const data = { email, password };
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     const id = toast.loading("Checking Credentials...", {
@@ -57,7 +70,7 @@ export default function Login() {
                     autoClose: 1000,
                   });
                 },
-                [500],
+                [500]
               );
             } else {
               const Token = result.token;
@@ -71,7 +84,11 @@ export default function Login() {
                   autoClose: 1500,
                 });
               }, []);
-              if (result.token != null) router.push("/");
+              if (result.token != null) {
+                setTimeout(() => {
+                  router.push("/");
+                }, 1500);
+              }
             }
           })
           .catch((error) => {
@@ -85,7 +102,7 @@ export default function Login() {
                   autoClose: 1000,
                 });
               },
-              [500],
+              [500]
             );
           });
       })
@@ -100,7 +117,7 @@ export default function Login() {
               autoClose: 1000,
             });
           },
-          [500],
+          [500]
         );
       });
   };
@@ -113,7 +130,7 @@ export default function Login() {
   const handlePasswordChange = (event) => {
     if (!validatePassword(event.target.value)) {
       setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
       );
     } else {
       setPasswordError("");
