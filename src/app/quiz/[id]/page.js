@@ -2,9 +2,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { useTheme } from "next-themes";
-import { quizData, defaultQuiz } from "./getQuiz";
+import { quizData, defaultQuiz } from "@/app/quiz/getQuiz";
 import OutputDataVisualization from "@/components/OutputDataVisualization";
-import { redirect } from "next/navigation";
 import { hasAuthenticated } from "@/utils/auth";
 import { handleEditorDidMount } from "@/utils/editor";
 import { useRouter } from "next/navigation";
@@ -18,6 +17,7 @@ export default function Quiz({ params }) {
       }, 0);
     }
   }, []);
+  
   function getQuizById(id) {
     return quizData[id] || defaultQuiz;
   }

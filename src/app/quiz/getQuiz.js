@@ -1,6 +1,6 @@
 export const quizData = {
   P1: {
-    sampleCode: `PARAMPARA PRATISHTA ANUSHASHAN\nNUM1 BOLE TOH INPUT LE LE RE BABA\n\nAGAR NUM1 > 2000 TAB\n\nPRINT BASANTI PRINT "YES"\nNHI TOH\nPRINT BASANTI PRINT "NO"\n\nBAS ITNA HI\nKHATAM TATA BYE BYE`,
+    sampleCode: `PARAMPARA PRATISHTA ANUSHASHAN\nNUM1 BOLE TOH INPUT LE LE RE BABA\n\nAGAR NUM1 >= 2000 TAB\n\nPRINT BASANTI PRINT "YES"\nNHI TOH\nPRINT BASANTI PRINT "NO"\n\nBAS ITNA HI\nKHATAM TATA BYE BYE`,
     output: "",
     constraints: {
       T: { min: 1, max: 2000 },
@@ -21,21 +21,21 @@ export const quizData = {
     problemStatement: {
       title: "PROBLEM STATEMENT",
       content: [
-        "Recently, Chef visited his doctor. The doctor advised Chef to drink at least 2000 ml of water each day.",
-        "Chef drank X ml of water today. Determine if Chef followed the doctor's advice or not.",
+        "Recently, Zen visited his doctor. The doctor advised Zen to drink at least 2000 ml of water each day.",
+        "Zen drank X ml of water today. Determine if Zen followed the doctor's advice or not.",
       ],
     },
     inputFormat: {
       title: "INPUT FORMAT",
       content: [
         "The first line contains a single integer T — the number of test cases. Then the test cases follow.",
-        "The first and only line of each test case contains one integer X — the amount of water Chef drank today.",
+        "The first and only line of each test case contains one integer X — the amount of water Zen drank today.",
       ],
     },
     outputFormat: {
       title: "OUTPUT FORMAT",
       content: [
-        "For each test case, output YES if Chef followed the doctor's advice of drinking at least 2000 ml of water. Otherwise, output NO.",
+        "For each test case, output YES if Zen followed the doctor's advice of drinking at least 2000 ml of water. Otherwise, output NO.",
       ],
     },
     constraints: {
@@ -57,9 +57,9 @@ export const quizData = {
     explanation: {
       title: "EXPLANATION",
       content: [
-        "Test case 1: Chef followed the doctor's advice since he drank 2999 ml of water which is ≥ 2000 ml.",
-        "Test case 2: Chef did not follow the doctor's advice since he drank 1450 ml of water which is less than 2000 ml.",
-        "Test case 3: Chef followed the doctor's advice since he drank 2000 ml of water which is ≥ 2000 ml.",
+        "Test case 1: Zen followed the doctor's advice since he drank 2999 ml of water which is ≥ 2000 ml.",
+        "Test case 2: Zen did not follow the doctor's advice since he drank 1450 ml of water which is less than 2000 ml.",
+        "Test case 3: Zen followed the doctor's advice since he drank 2000 ml of water which is ≥ 2000 ml.",
       ],
     },
   },
@@ -85,7 +85,7 @@ export const quizData = {
     problemStatement: {
       title: "PROBLEM STATEMENT",
       content: [
-        "Chef loves playing with numbers. Help Chef determine if a given number is even or odd.",
+        "Zen loves playing with numbers. Help Zen determine if a given number is even or odd.",
         "Write a program that takes an integer N as input and prints 'EVEN' if N is even and 'ODD' otherwise.",
       ],
     },
@@ -93,7 +93,7 @@ export const quizData = {
       title: "INPUT FORMAT",
       content: [
         "The first line contains a single integer T — the number of test cases. Then the test cases follow.",
-        "The first and only line of each test case contains one integer N — the number Chef wants to check.",
+        "The first and only line of each test case contains one integer N — the number Zen wants to check.",
       ],
     },
     outputFormat: {
@@ -149,7 +149,7 @@ export const quizData = {
     problemStatement: {
       title: "PROBLEM STATEMENT",
       content: [
-        "Chef is curious about numbers and their properties. Help Chef determine if a given number is zero or non-zero.",
+        "Zen is curious about numbers and their properties. Help Zen determine if a given number is zero or non-zero.",
         "Write a program that takes an integer N as input and prints 'ZERO' if N is zero and 'NON-ZERO' otherwise.",
       ],
     },
@@ -157,7 +157,7 @@ export const quizData = {
       title: "INPUT FORMAT",
       content: [
         "The first line contains a single integer T — the number of test cases. Then the test cases follow.",
-        "The first and only line of each test case contains one integer N — the number Chef wants to check.",
+        "The first and only line of each test case contains one integer N — the number Zen wants to check.",
       ],
     },
     outputFormat: {

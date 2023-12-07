@@ -15,15 +15,12 @@ export default function Login() {
   const message = searchParams.get("message");
   const [hasShownMessage, setHasShownMessage] = useState(false);
 
-  useEffect(() => {
     if (message && !hasShownMessage) {
       const notify = (message) => toast(message, { type: "error" });
       notify(message);
       setHasShownMessage(true);
     }
-  }, []);
 
-  // sForce.one.showToast({"message": message, "type": "error"});
   useEffect(() => {
     if (hasAuthenticated()) {
       redirect("/");
