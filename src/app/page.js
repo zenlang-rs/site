@@ -143,7 +143,7 @@ export default function Home() {
               }`}
             >
               <textarea
-                className={`w-full h-32 border p-2 rounded text-black `}
+                className={`w-full h-32 border p-2 rounded ${darkMode ? "text-white" : "text-black"} `}
                 placeholder="Enter your input here..."
                 onChange={(e) => setTextareaContent(e.target.value)}
               ></textarea>
