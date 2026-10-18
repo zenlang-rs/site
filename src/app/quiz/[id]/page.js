@@ -10,6 +10,7 @@ import { executeZenQuiz, initZenWasm } from "@/utils/zenWasm";
 import { useRouter } from "next/navigation";
 
 export default function Quiz({ params }) {
+  const unwrappedParams = React.use(params);
   const router = useRouter();
   useEffect(() => {
     initZenWasm();
@@ -26,7 +27,7 @@ export default function Quiz({ params }) {
 
   const defaultQuizID = "P1";
 
-  const quiz = getQuizById(params.id || defaultQuizID);
+  const quiz = getQuizById(unwrappedParams?.id || defaultQuizID);
   const [output, setOutput] = useState(quiz.output);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

@@ -8,6 +8,7 @@ import { useTheme } from "next-themes";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ResetPassword({ params }) {
+  const unwrappedParams = React.use(params);
   const router = useRouter();
 
   const [darkMode, setDarkMode] = useState(false);
@@ -18,8 +19,8 @@ export default function ResetPassword({ params }) {
     setDarkMode(currentTheme === "dark");
   }, [systemTheme, theme]);
 
-  const email = decodeURIComponent(params.details[0]);
-  const verification_token = decodeURIComponent(params.details[1]);
+  const email = decodeURIComponent(unwrappedParams?.details?.[0] || "");
+  const verification_token = decodeURIComponent(unwrappedParams?.details?.[1] || "");
   const resetpass = async (e) => {
     e.preventDefault();
     let new_password = document.getElementById("pass").value;

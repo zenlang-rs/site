@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
 
 /* :root {
   --foreground-rgb: 0, 0, 0;
@@ -29,10 +28,18 @@
 }
 
 [data-theme='dark'] body {
-  background: "black";
+  background: black;
 }
 
 body {
   /* color: rgb(var(--foreground-rgb)); */
   font-family: 'sans';
 }
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  cursor: pointer;
+}
+

@@ -92,6 +92,7 @@ export default function Navbar() {
               height={logo.height}
               src={logo.src}
               alt={logo.alt}
+              style={{ width: "auto", height: "auto" }}
             />
             <span
               className={

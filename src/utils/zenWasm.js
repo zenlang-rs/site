@@ -12,7 +12,7 @@ export async function initZenWasm() {
   if (!wasmInitPromise) {
     wasmInitPromise = (async () => {
       const wasmModule = await import("../../public/wasm/zen.js");
-      await wasmModule.default("/wasm/zen_bg.wasm");
+      await wasmModule.default({ module_or_path: "/wasm/zen_bg.wasm" });
       return wasmModule;
     })();
   }

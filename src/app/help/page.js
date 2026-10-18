@@ -72,6 +72,7 @@ function Help() {
         src={logo.src}
         width={logo.width}
         height={logo.height}
+        style={{ width: "auto", height: "auto" }}
       />
       <h2
         className={

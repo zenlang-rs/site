@@ -62,7 +62,7 @@ export default function Home() {
 
         <button
           onClick={showValue}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg h-fit"
+          className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-4 py-2 rounded-lg h-fit cursor-pointer disabled:cursor-not-allowed transition duration-150"
           disabled={loading}
         >
           {loading ? "Compiling..." : "Compile"}
