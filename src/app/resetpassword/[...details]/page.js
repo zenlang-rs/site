@@ -1,14 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import { sha256 } from "js-sha256";
 import { useTheme } from "next-themes";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function ResetPassword({ params }) {
-  const unwrappedParams = React.use(params);
+export default function ResetPassword() {
+  const routeParams = useParams();
   const router = useRouter();
 
   const [darkMode, setDarkMode] = useState(false);
@@ -19,16 +19,22 @@ export default function ResetPassword({ params }) {
     setDarkMode(currentTheme === "dark");
   }, [systemTheme, theme]);
 
-  const email = decodeURIComponent(unwrappedParams?.details?.[0] || "");
-  const verification_token = decodeURIComponent(unwrappedParams?.details?.[1] || "");
+  const email = decodeURIComponent(routeParams?.details?.[0] || "");
+  const verification_token = decodeURIComponent(routeParams?.details?.[1] || "");
   const resetpass = async (e) => {
     e.preventDefault();
-    let new_password = document.getElementById("pass").value;
-    new_password = sha256(password);
+    const rawPassword = document.getElementById("pass").value;
+    if (!validatePassword(rawPassword)) {
+      toast.error(
+        "Must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+      );
+      return;
+    }
+    const new_password = sha256(rawPassword);
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     const data = { email, new_password, verification_token };
     const id = toast.loading("Resetting Password", {
-      position: toast.POSITION.TOP_RIGHT,
+      position: "top-right",
     });
     await fetch(`${host}/api/reset`, {
       method: "POST",
@@ -46,7 +52,7 @@ export default function ResetPassword({ params }) {
                 render: "Password Reset Successfully",
                 type: "success",
                 isLoading: false,
-                position: toast.POSITION.TOP_RIGHT,
+                position: "top-right",
                 autoClose: 1500,
               });
               setTimeout(function () {
@@ -60,7 +66,7 @@ export default function ResetPassword({ params }) {
                   render: result.message,
                   type: "error",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  position: "top-right",
                   autoClose: 1000,
                 });
               },
@@ -76,7 +82,7 @@ export default function ResetPassword({ params }) {
               render: error,
               type: "error",
               isLoading: false,
-              position: toast.POSITION.TOP_RIGHT,
+              position: "top-right",
               autoClose: 1000,
             });
           },
@@ -87,14 +93,19 @@ export default function ResetPassword({ params }) {
   const [passwordError, setPasswordError] = useState("");
   const validatePassword = (password) => {
     const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!_\-%*?&])[A-Za-z\d_@$\-!%*?&]{6,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{6,}$/;
     return regex.test(password);
   };
 
   const handlePasswordChange = (event) => {
-    if (!validatePassword(event.target.value)) {
+    const val = event.target.value;
+    if (!val) {
+      setPasswordError("");
+      return;
+    }
+    if (!validatePassword(val)) {
       setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        "Must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
       );
     } else {
       setPasswordError("");
@@ -148,7 +159,7 @@ export default function ResetPassword({ params }) {
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
               {passwordError && (
-                <small style={{ color: "red" }}>{passwordError}</small>
+                <p className="mt-1 text-sm text-red-500">{passwordError}</p>
               )}
             </div>
 

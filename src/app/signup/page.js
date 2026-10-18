@@ -33,12 +33,18 @@ export default function SignUp() {
     const name = document.getElementById("name").value;
     const username = document.getElementById("uname").value;
     const email = document.getElementById("email").value;
-    let password = document.getElementById("pass").value;
-    password = sha256(password);
+    const rawPassword = document.getElementById("pass").value;
+    if (!validatePassword(rawPassword)) {
+      toast.error(
+        "Must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+      );
+      return;
+    }
+    const password = sha256(rawPassword);
     const data = { name, username, email, password };
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     const id = toast.loading("Checking Credentials...", {
-      position: toast.POSITION.TOP_RIGHT,
+      position: "top-right",
     });
     await fetch(`${host}/api/signup`, {
       method: "POST",
@@ -58,7 +64,7 @@ export default function SignUp() {
                     render: result.message,
                     type: "error",
                     isLoading: false,
-                    position: toast.POSITION.TOP_RIGHT,
+                    position: "top-right",
                     autoClose: 1000,
                   });
                 },
@@ -72,7 +78,7 @@ export default function SignUp() {
                   render: "Sign Up Successfully",
                   type: "success",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  position: "top-right",
                   autoClose: 1500,
                 });
               }, []);
@@ -87,10 +93,10 @@ export default function SignUp() {
             setTimeout(
               function () {
                 toast.update(id, {
-                  render: result.message || error,
+                  render: error?.message || String(error),
                   type: "error",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  position: "top-right",
                   autoClose: 1000,
                 });
               },
@@ -105,7 +111,7 @@ export default function SignUp() {
               render: err,
               type: "error",
               isLoading: false,
-              position: toast.POSITION.TOP_RIGHT,
+              position: "top-right",
               autoClose: 1000,
             });
           },
@@ -115,14 +121,19 @@ export default function SignUp() {
   };
   const validatePassword = (password) => {
     const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!_\-%*?&])[A-Za-z\d_@$\-!%*?&]{6,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{6,}$/;
     return regex.test(password);
   };
 
   const handlePasswordChange = (event) => {
-    if (!validatePassword(event.target.value)) {
+    const val = event.target.value;
+    if (!val) {
+      setPasswordError("");
+      return;
+    }
+    if (!validatePassword(val)) {
       setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        "Must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
       );
     } else {
       setPasswordError("");
@@ -240,7 +251,7 @@ export default function SignUp() {
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
               {passwordError && (
-                <small style={{ color: "red" }}>{passwordError}</small>
+                <p className="mt-1 text-sm text-red-500">{passwordError}</p>
               )}
             </div>
             <div className="text-center mb-1">

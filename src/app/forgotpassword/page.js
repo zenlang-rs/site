@@ -20,7 +20,7 @@ export default function ForgotPassword() {
     const email = document.getElementById("email").value;
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     const id = toast.loading("Checking Credentials...", {
-      position: toast.POSITION.TOP_RIGHT,
+      position: "top-right",
     });
     await fetch(`${host}/api/send_email/${email}`, {
       method: "POST",
@@ -38,7 +38,7 @@ export default function ForgotPassword() {
                   render: result.message,
                   type: "error",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  position: "top-right",
                   autoClose: 1000,
                 });
               },
@@ -50,7 +50,7 @@ export default function ForgotPassword() {
                 render: "Email Sent Successfully",
                 type: "success",
                 isLoading: false,
-                position: toast.POSITION.TOP_RIGHT,
+                position: "top-right",
                 autoClose: 1500,
               });
             }, []);
@@ -64,7 +64,7 @@ export default function ForgotPassword() {
               render: error,
               type: "error",
               isLoading: false,
-              position: toast.POSITION.TOP_RIGHT,
+              position: "top-right",
               autoClose: 1000,
             });
           },

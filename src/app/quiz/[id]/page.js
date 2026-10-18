@@ -7,11 +7,11 @@ import OutputDataVisualization from "@/components/OutputDataVisualization";
 import { hasAuthenticated } from "@/utils/auth";
 import { handleEditorDidMount } from "@/utils/editor";
 import { executeZenQuiz, initZenWasm } from "@/utils/zenWasm";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
-export default function Quiz({ params }) {
-  const unwrappedParams = React.use(params);
+export default function Quiz() {
   const router = useRouter();
+  const routeParams = useParams();
   useEffect(() => {
     initZenWasm();
     if (!hasAuthenticated()) {
@@ -27,7 +27,7 @@ export default function Quiz({ params }) {
 
   const defaultQuizID = "P1";
 
-  const quiz = getQuizById(unwrappedParams?.id || defaultQuizID);
+  const quiz = getQuizById(routeParams?.id || defaultQuizID);
   const [output, setOutput] = useState(quiz.output);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

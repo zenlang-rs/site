@@ -36,7 +36,6 @@ function LoginForm() {
     setDarkMode(currentTheme === "dark");
   }, [systemTheme, theme]);
 
-  const [passwordError, setPasswordError] = useState("");
   const handleLoginIn = async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -45,7 +44,7 @@ function LoginForm() {
     const data = { email, password };
     const host = process.env.SERVER_HOSTNAME || "http://localhost:8000";
     const id = toast.loading("Checking Credentials...", {
-      position: toast.POSITION.TOP_RIGHT,
+      position: "top-right",
     });
     await fetch(`${host}/api/login`, {
       method: "POST",
@@ -66,7 +65,7 @@ function LoginForm() {
                     render: result.message,
                     type: "error",
                     isLoading: false,
-                    position: toast.POSITION.TOP_RIGHT,
+                    position: "top-right",
                     autoClose: 1000,
                   });
                 },
@@ -80,7 +79,7 @@ function LoginForm() {
                   render: "Login Successfully",
                   type: "success",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  position: "top-right",
                   autoClose: 1500,
                 });
               }, []);
@@ -98,7 +97,7 @@ function LoginForm() {
                   render: error,
                   type: "error",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  position: "top-right",
                   autoClose: 1000,
                 });
               },
@@ -113,28 +112,13 @@ function LoginForm() {
               render: err,
               type: "error",
               isLoading: false,
-              position: toast.POSITION.TOP_RIGHT,
+              position: "top-right",
               autoClose: 1000,
             });
           },
           [500]
         );
       });
-  };
-  const validatePassword = (password) => {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!_\-%*?&])[A-Za-z\d_@$\-!%*?&]{6,}$/;
-    return regex.test(password);
-  };
-
-  const handlePasswordChange = (event) => {
-    if (!validatePassword(event.target.value)) {
-      setPasswordError(
-        "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
-      );
-    } else {
-      setPasswordError("");
-    }
   };
 
   const backgroundImageURL = "/zen-lang-img.jpg";
@@ -202,12 +186,8 @@ function LoginForm() {
                 name="pass"
                 type="password"
                 required
-                onChange={handlePasswordChange}
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
-              {passwordError && (
-                <small style={{ color: "red" }}>{passwordError}</small>
-              )}
             </div>
             <div className="text-center mb-6">
               <button className="w-full px-4 py-2 mb-4 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
