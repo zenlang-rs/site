@@ -1,0 +1,28 @@
+{
+  "name": "zen",
+  "type": "module",
+  "collaborators": [
+    "rootCircle <dev.frolics@gmail.com>"
+  ],
+  "version": "0.3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenlang-rs/zen-lang"
+  },
+  "files": [
+    "zen_bg.wasm",
+    "zen.js",
+    "zen.d.ts"
+  ],
+  "main": "zen.js",
+  "types": "zen.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ],
+  "keywords": [
+    "zenlang",
+    "bollywood",
+    "language",
+    "compiler"
+  ]
+}

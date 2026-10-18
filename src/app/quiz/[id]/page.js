@@ -6,11 +6,13 @@ import { quizData, defaultQuiz } from "@/app/quiz/getQuiz";
 import OutputDataVisualization from "@/components/OutputDataVisualization";
 import { hasAuthenticated } from "@/utils/auth";
 import { handleEditorDidMount } from "@/utils/editor";
+import { executeZenQuiz, initZenWasm } from "@/utils/zenWasm";
 import { useRouter } from "next/navigation";
 
 export default function Quiz({ params }) {
   const router = useRouter();
   useEffect(() => {
+    initZenWasm();
     if (!hasAuthenticated()) {
       setTimeout(() => {
         router.replace("/login?message=Please Login to Access Quiz");
@@ -53,30 +55,8 @@ export default function Quiz({ params }) {
     setError(null);
 
     try {
-      const server_host =
-        process.env.SERVER_HOSTNAME || "http://localhost:8000";
-
-      const response = await fetch(server_host.concat("/api/quiz"), {
-        method: "POST",
-        body: JSON.stringify({
-          code: code,
-          testcases: testcases,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to compile code");
-      }
-
-      const data = await response.json();
-      if (!data.output_match) {
-        throw new Error("Failed to compile code");
-      }
-
-      setOutput(JSON.stringify(data.output_match));
+      const matchResults = await executeZenQuiz(code, testcases);
+      setOutput(JSON.stringify(matchResults));
     } catch (error) {
       setError("Error compiling code. Please try again.");
     } finally {

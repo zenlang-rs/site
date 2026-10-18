@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { useTheme } from "next-themes";
 import { handleEditorDidMount } from "@/utils/editor";
+import { executeZenCode, initZenWasm } from "@/utils/zenWasm";
 
 export default function Home() {
   const [output, setOutput] = useState("");
@@ -17,6 +18,8 @@ export default function Home() {
   useEffect(() => {
     const currentTheme = theme === "system" ? systemTheme : theme;
     setDarkMode(currentTheme === "dark");
+    // Pre-initialize WASM module on load
+    initZenWasm();
   }, [systemTheme, theme]);
 
   const sampleCode =
@@ -29,33 +32,8 @@ export default function Home() {
     setError(null);
 
     try {
-      // Make an API call to compile the code
-      // @TODO
-
-      const server_host =
-        process.env.SERVER_HOSTNAME || "http://localhost:8000";
-
-      const response = await fetch(server_host.concat("/api/compile"), {
-        method: "POST",
-        body: JSON.stringify({ code: code, input: textareaContent }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to compile code");
-      }
-
-      const data = await response.json();
-      if (!data.output || (!data.output.Ok && data.output.Ok !== "")) {
-        if (data.output.Err) {
-          throw new Error(data.output.Err);
-        }
-        throw new Error("Error compiling code. Please try again.");
-      }
-
-      setOutput(data.output.Ok);
+      const result = await executeZenCode(code, textareaContent);
+      setOutput(result);
     } catch (error) {
       setError(error.toString());
     } finally {
