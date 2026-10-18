@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -9,17 +9,20 @@ import { ToastContainer } from "react-toastify";
 import { useTheme } from "next-themes";
 import "react-toastify/dist/ReactToastify.css";
 import { hasAuthenticated } from "@/utils/auth";
-export default function Login() {
+
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const message = searchParams.get("message");
   const [hasShownMessage, setHasShownMessage] = useState(false);
 
+  useEffect(() => {
     if (message && !hasShownMessage) {
-      const notify = (message) => toast(message, { type: "error" });
+      const notify = (msg) => toast(msg, { type: "error" });
       notify(message);
       setHasShownMessage(true);
     }
+  }, [message, hasShownMessage]);
 
   useEffect(() => {
     if (hasAuthenticated()) {
@@ -220,5 +223,13 @@ export default function Login() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
   );
 }
